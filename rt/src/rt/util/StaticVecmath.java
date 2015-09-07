@@ -11,6 +11,19 @@ public class StaticVecmath {
 		return tmp.lengthSquared();
 	}
 	
+	public static float dot(Vector3f v1, Vector3f v2)
+	{
+		Vector3f r = new Vector3f(v1);
+		return r.dot(v2);
+	}
+	
+	public static Vector3f add(Tuple3f v1, Tuple3f v2)
+	{
+		Vector3f r = new Vector3f(v1);
+		r.add(v2);
+		return r;
+	}
+	
 	public static Vector3f sub(Tuple3f v1, Tuple3f v2)
 	{
 		Vector3f r = new Vector3f(v1);

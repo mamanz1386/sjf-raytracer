@@ -8,7 +8,7 @@ import rt.Scene;
 import rt.Spectrum;
 import rt.cameras.MovableCamera;
 import rt.films.BoxFilterFilm;
-import rt.integrators.TrivialIntegratorFactory;
+import rt.integrators.PointLightIntegratorFactory;
 import rt.intersectables.IntersectableList;
 import rt.intersectables.Plane;
 import rt.lightsources.PointLight;
