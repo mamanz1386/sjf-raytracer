@@ -37,7 +37,6 @@ public class PointLightIntegrator implements Integrator {
 		HitRecord hitRecord = root.intersect(r);
 
 		if (hitRecord != null) {
-			// Only works with diffuse material
 			Vector3f w = hitRecord.w;
 			Vector3f n = hitRecord.normal;
 			Vector3f scaled = new Vector3f(n);
