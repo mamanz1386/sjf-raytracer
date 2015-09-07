@@ -23,7 +23,7 @@ public class FixedCamera implements Camera {
 	 * @param width width of the image in pixels
 	 * @param height height of the image in pixels
 	 */
-	public FixedCamera(int width, int height)
+	public FixedCamera()
 	{
 		// Fixed eye position in world coordinates
 		eye = new Vector3f(0.f, 0.f, 3.0f);
