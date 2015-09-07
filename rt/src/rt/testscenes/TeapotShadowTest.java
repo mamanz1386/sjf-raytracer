@@ -45,7 +45,7 @@ public class TeapotShadowTest extends Scene {
 		int width = 256;
 		int height = 256;
 		float aspect = (float)width/(float)height;
-		camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);						
 		tonemapper = new ClampTonemapper();
 		

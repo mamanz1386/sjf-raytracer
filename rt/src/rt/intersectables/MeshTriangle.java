@@ -60,13 +60,13 @@ public class MeshTriangle implements Intersectable {
 		
 		Matrix3f me = new Matrix3f();
 		me.m00 = a.x - b.x;
-		me.m01 = a.y - b.y;
-		me.m02 = a.z - b.z;
-		me.m10 = a.x - c.x;
+		me.m10 = a.y - b.y;
+		me.m20 = a.z - b.z;
+		me.m01 = a.x - c.x;
 		me.m11 = a.y - c.y;
-		me.m12 = a.z - c.z;
-		me.m20 = d.x;
-		me.m21 = d.y;
+		me.m21 = a.z - c.z;
+		me.m02 = d.x;
+		me.m12 = d.y;
 		me.m22 = d.z;
 		
 		Vector3f m = new Vector3f(a.x - e.x, a.y - e.y, a.z - e.z);
@@ -78,8 +78,7 @@ public class MeshTriangle implements Intersectable {
 		float t = m.z;
 		float beta = m.x;
 		float gamma = m.y;
-		float alpha = 1f -beta -gamma;
-		
+		float alpha = 1 -beta -gamma;
 		if(beta>0 && gamma>0 && beta+gamma<1){
 			Point3f p = r.pointAt(t);
 			
@@ -95,10 +94,10 @@ public class MeshTriangle implements Intersectable {
 			float nz1 = normals[v1*3+2];
 			float nz2 = normals[v2*3+2];
 			
-			Vector3f normal = new Vector3f(alpha*nx0 + beta*ny0 + gamma*nz0, alpha*nx1 + beta*ny1 + gamma*nz1, alpha*nx2 + beta*ny2 + gamma*nz2);
+			Vector3f normal = new Vector3f(alpha*nx0 + beta*nx1 + gamma*nx2, alpha*ny0 + beta*ny1 + gamma*ny2, alpha*nz0 + beta*nz1 + gamma*nz2);
 			
-			
-			new HitRecord(t, p, normal, r.direction, this, mesh.material, 0, 0);
+			normal.normalize();
+			return new HitRecord(t, p, normal, r.direction, this, mesh.material, 0, 0);
 		}
 		
 		return null;
@@ -107,7 +106,7 @@ public class MeshTriangle implements Intersectable {
 	@Override
 	public AxisAlignedBox getBoundingBox() {
 		// TODO Generate some useful bounding box
-		return null;
+		return AxisAlignedBox.INFINITE_BOUNDING_BOX;
 	}
 
 	@Override
