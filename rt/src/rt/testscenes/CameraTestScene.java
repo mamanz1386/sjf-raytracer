@@ -23,7 +23,7 @@ public class CameraTestScene extends Scene {
 		outputFilename = new String("../output/testscenes/CameraGross");
 		
 		// Image width and height in pixels
-		width = 1280*2;
+		width = 1280;
 		height = 720;
 		
 		// Number of samples per pixel
@@ -41,7 +41,7 @@ public class CameraTestScene extends Scene {
 		tonemapper = new ClampTonemapper();
 		
 		// Specify which integrator and sampler to use
-		integratorFactory = new TrivialIntegratorFactory();
+		integratorFactory = new PointLightIntegratorFactory();
 		samplerFactory = new OneSamplerFactory();
 		
 		// Define some objects to be added to the scene. 

@@ -1,5 +1,8 @@
 package rt.integrators;
 
+import javax.vecmath.Vector3f;
+
+import rt.HitRecord;
 import rt.Integrator;
 import rt.Intersectable;
 import rt.LightList;
@@ -7,6 +10,7 @@ import rt.Ray;
 import rt.Sampler;
 import rt.Scene;
 import rt.Spectrum;
+import rt.util.StaticVecmath;
 
 /**
  * Integrator for Whitted style ray tracing. This is a basic version that needs to be extended!
@@ -29,8 +33,23 @@ public class PointLightIntegrator implements Integrator {
 	 */
 	public Spectrum integrate(Ray r) {
 		Spectrum outgoing = new Spectrum(0.f, 0.f, 0.f);	
-		// TODO: Check if ray intersects with any objects. If it does, do some appropriate shading.
-		return outgoing;	
+		
+		HitRecord hitRecord = root.intersect(r);
+
+		if (hitRecord != null) {
+			// Only works with diffuse material
+			Vector3f w = hitRecord.w;
+			Vector3f n = hitRecord.normal;
+			Vector3f scaled = new Vector3f(n);
+			scaled.scale(2);
+			scaled.scale(w.dot(n));
+			Spectrum color = hitRecord.material.evaluateBRDF(hitRecord, StaticVecmath.negate(w),
+					StaticVecmath.sub(w, scaled));
+			return color;
+		} else {
+			return new Spectrum(0.f, 0.f, 0.f);
+		}
+		
 	}
 
 	public float[][] makePixelSamples(Sampler sampler, int n) {
