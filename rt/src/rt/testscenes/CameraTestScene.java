@@ -45,7 +45,7 @@ public class CameraTestScene extends Scene {
 		tonemapper = new ClampTonemapper();
 		
 		// Specify which integrator and sampler to use
-		integratorFactory = new TrivialIntegratorFactory();
+		integratorFactory = new PointLightIntegratorFactory();
 		samplerFactory = new OneSamplerFactory();
 		
 		// Define some objects to be added to the scene. 
