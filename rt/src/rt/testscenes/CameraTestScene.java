@@ -9,6 +9,7 @@ import rt.Spectrum;
 import rt.cameras.MovableCamera;
 import rt.films.BoxFilterFilm;
 import rt.integrators.PointLightIntegratorFactory;
+import rt.integrators.TrivialIntegratorFactory;
 import rt.intersectables.IntersectableList;
 import rt.intersectables.Plane;
 import rt.lightsources.PointLight;
@@ -24,8 +25,7 @@ public class CameraTestScene extends Scene {
 	public CameraTestScene()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/CameraMovable");
-		
+		outputFilename = new String("../output/testscenes/CameraShade");
 		// Image width and height in pixels
 		width = 1280;
 		height = 720;
@@ -59,11 +59,11 @@ public class CameraTestScene extends Scene {
 		
 		IntersectableList iList = new IntersectableList();
 		// Some planes are left out
-		//iList.add(p1);
+		iList.add(p1);
 		iList.add(p2);
 		iList.add(p3);
-		//iList.add(p4);
-		//iList.add(p5);
+		iList.add(p4);
+		iList.add(p5);
 		
 		this.root = iList;
 		

@@ -1,10 +1,12 @@
 package rt.integrators;
 
+import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
 import rt.HitRecord;
 import rt.Integrator;
 import rt.Intersectable;
+import rt.LightGeometry;
 import rt.LightList;
 import rt.Ray;
 import rt.Sampler;
@@ -42,9 +44,31 @@ public class PointLightIntegrator implements Integrator {
 			Vector3f scaled = new Vector3f(n);
 			scaled.scale(2);
 			scaled.scale(w.dot(n));
-			Spectrum color = hitRecord.material.evaluateBRDF(hitRecord, StaticVecmath.negate(w),
+			
+			Spectrum diffuse = hitRecord.material.evaluateBRDF(hitRecord, StaticVecmath.negate(w),
 					StaticVecmath.sub(w, scaled));
-			return color;
+			LightGeometry light0 = lightList.get(0);
+			HitRecord lightHit = light0.sample(null);
+			Point3f lightPoint = lightHit.position;
+			Vector3f lightVec = new Vector3f(hitRecord.position.x-lightPoint.x, hitRecord.position.y-lightPoint.y, hitRecord.position.z-lightPoint.z);
+			lightVec.negate();
+			
+			double lightLenght= lightVec.lengthSquared();
+			
+			lightVec.normalize();
+			Spectrum lightColor= lightHit.material.evaluateEmission(lightHit, lightVec);
+			n.normalize();
+			
+			
+			double theta = n.dot(lightVec);
+			lightColor.mult(diffuse);
+			lightColor.mult((float)theta);
+			
+			lightColor.mult((float) (1f/lightLenght));;
+			
+			return lightColor;
+			
+			
 		} else {
 			return new Spectrum(0.f, 0.f, 0.f);
 		}
