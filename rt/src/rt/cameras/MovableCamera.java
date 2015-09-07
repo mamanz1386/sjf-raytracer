@@ -47,7 +47,7 @@ public class MovableCamera implements Camera{
 		p.m22=1;
 		p.m33=1;
 		
-		System.out.println(eye+":"+lookAt+":"+up);
+		//System.out.println(eye+":"+lookAt+":"+up);
 		
 		//Create Camera-World transformation matrix
 		Vector3f w=StaticVecmath.sub(eye, lookAt);
@@ -60,7 +60,7 @@ public class MovableCamera implements Camera{
 		Vector3f v=new Vector3f();
 		v.cross(w, u);
 		
-		System.out.println(u+":"+v+":"+w);
+		//System.out.println(u+":"+v+":"+w);
 		
 		m=new Matrix4f();
 		m.m00=u.x;
@@ -84,7 +84,7 @@ public class MovableCamera implements Camera{
 		m.m33=1;
 		
 		m.mul(p);
-		System.out.println(m);
+		//System.out.println(m);
 	}
 
 	/**

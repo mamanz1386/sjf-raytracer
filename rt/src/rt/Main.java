@@ -1,13 +1,12 @@
 package rt;
 
-import rt.basicscenes.*;
-import rt.renderers.MultiThreadedRenderer;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.util.concurrent.ExecutionException;
+
 import rt.renderers.Renderer;
 import rt.renderers.SingleThreadedRenderer;
-import rt.testscenes.*;
-
-import java.io.*;
-import java.util.concurrent.ExecutionException;
+import rt.testscenes.CameraTestScene;
 
 /**
  * The main rendering loop. Provides multi-threading support. The {@link Main#scene} to be rendered
@@ -19,7 +18,7 @@ public class Main {
 	/** 
 	 * The scene to be rendered.
 	 */
-	public static Scene scene = new SphereTest();
+	public static Scene scene = new CameraTestScene();
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
