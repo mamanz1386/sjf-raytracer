@@ -4,21 +4,25 @@ import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
+import rt.Camera;
 import rt.Ray;
 import rt.util.StaticVecmath;
 
-public class MovableCamera {
+public class MovableCamera implements Camera{
 
 	Vector3f eye;
 	float fov, aspect;
 	int width,height;
+	float t,r;
 	Matrix4f m;
 	
 	/**
-	 * Makes a camera with fixed position and view frustum. The position is at [0,0,3] in world space. 
-	 * The camera looks down the negative z-axis towards the origin. The view frustum of the camera
-	 * goes through the points [-1,-1,-1], [1,-1,-1], [-1,1,-1],[1,1,-1] in camera coordinates.
-	 * 
+	 * Makes a camera with variable position.
+	 * @param eye position of camera in world
+	 * @param lookAt point camera is looking at
+	 * @param up upwards direction of the camera
+	 * @param fov field of view(in degrees)
+	 * @param aspect ratio right/top
 	 * @param width width of the image in pixels
 	 * @param height height of the image in pixels
 	 */
@@ -31,17 +35,34 @@ public class MovableCamera {
 		this.width=width;
 		this.height=height;
 		
-		//Make Camera-World transformation matrix
+		t=(float)Math.tan(Math.toRadians(fov/2));
+		r=aspect*t;
+		
+		//Create Viewpoint matrix
+		Matrix4f p=new Matrix4f();
+		p.m00=2*r/width;
+		p.m11=2*t/height;
+		p.m02=r;
+		p.m12=t;
+		p.m22=1;
+		p.m33=1;
+		
+		System.out.println(eye+":"+lookAt+":"+up);
+		
+		//Create Camera-World transformation matrix
 		Vector3f w=StaticVecmath.sub(eye, lookAt);
 		w.scale(1/w.length());
-		up.cross(w, up);
-		Vector3f u=new Vector3f();
-		u.scale(1/up.length());
+		
+		up.cross(up, w);
+		up.scale(1/up.length());
+		Vector3f u=up;
+		
 		Vector3f v=new Vector3f();
 		v.cross(w, u);
 		
+		System.out.println(u+":"+v+":"+w);
+		
 		m=new Matrix4f();
-		m.setIdentity();
 		m.m00=u.x;
 		m.m10=u.y;
 		m.m20=u.z;
@@ -61,6 +82,9 @@ public class MovableCamera {
 		m.m13=eye.y;
 		m.m23=eye.z;
 		m.m33=1;
+		
+		m.mul(p);
+		System.out.println(m);
 	}
 
 	/**
@@ -76,16 +100,15 @@ public class MovableCamera {
 	public Ray makeWorldSpaceRay(int i, int j, float[] sample) {
 		// Make point on image plane in viewport coordinates, that is range [0,width-1] x [0,height-1]
 		// The assumption is that pixel [i,j] is the square [i,i+1] x [j,j+1] in viewport coordinates
-		float t=(float)Math.tan(fov/2);
-		float r=aspect*t;
-		Vector4f d=new Vector4f((float)(2*r*(i+0.5)/width-r), (float)(2*t*(j+0.5)/height-t), -1F, 1F);
-		//Vector4f d = new Vector4f((float)i+sample[0],(float)j+sample[1],-1.f,1.f);
+		
+		//Vector4f d=new Vector4f((float)i, (float)j, -1F, 1F);
+		Vector4f d = new Vector4f((float)i+sample[0],(float)j+sample[1],-1.f,1.f);
 		
 		// Transform it back to world coordinates
 		m.transform(d);
 		
 		// Make ray consisting of origin and direction in world coordinates
-		Vector3f dir = new Vector3f();
+		Vector3f dir = new Vector3f(d.x,d.y,d.z);
 		dir.sub(new Vector3f(d.x, d.y, d.z), eye);
 		Ray ray = new Ray(new Vector3f(eye), dir);
 		return ray;

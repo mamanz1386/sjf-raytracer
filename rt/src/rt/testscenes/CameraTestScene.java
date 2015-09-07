@@ -2,15 +2,20 @@ package rt.testscenes;
 
 import javax.vecmath.Vector3f;
 
-import rt.*;
-import rt.cameras.*;
-import rt.films.*;
-import rt.integrators.*;
-import rt.intersectables.*;
-import rt.lightsources.*;
+import rt.LightGeometry;
+import rt.LightList;
+import rt.Scene;
+import rt.Spectrum;
+import rt.cameras.MovableCamera;
+import rt.films.BoxFilterFilm;
+import rt.integrators.PointLightIntegratorFactory;
+import rt.integrators.TrivialIntegratorFactory;
+import rt.intersectables.IntersectableList;
+import rt.intersectables.Plane;
+import rt.lightsources.PointLight;
 import rt.materials.Diffuse;
-import rt.samplers.*;
-import rt.tonemappers.*;
+import rt.samplers.OneSamplerFactory;
+import rt.tonemappers.ClampTonemapper;
 
 /**
  * Test scene for pinhole camera specifications.
@@ -21,7 +26,6 @@ public class CameraTestScene extends Scene {
 	{
 		// Output file name
 		outputFilename = new String("../output/testscenes/CameraShade");
-		
 		// Image width and height in pixels
 		width = 1280;
 		height = 720;
@@ -35,7 +39,7 @@ public class CameraTestScene extends Scene {
 		Vector3f up = new Vector3f(0.2f, 1.f, 0.f);
 		float fov = 60.f;
 		float aspect = 16.f/9.f;
-		camera = new FixedCamera(600, 600);
+		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		//camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);
 		tonemapper = new ClampTonemapper();
