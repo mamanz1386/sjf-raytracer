@@ -20,7 +20,7 @@ public class CameraTestScene extends Scene {
 	public CameraTestScene()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/CameraGross");
+		outputFilename = new String("../output/testscenes/CameraShade");
 		
 		// Image width and height in pixels
 		width = 1280;
