@@ -59,11 +59,11 @@ public class CameraTestScene extends Scene {
 		
 		IntersectableList iList = new IntersectableList();
 		// Some planes are left out
-		//iList.add(p1);
+		iList.add(p1);
 		iList.add(p2);
 		iList.add(p3);
-		//iList.add(p4);
-		//iList.add(p5);
+		iList.add(p4);
+		iList.add(p5);
 		
 		this.root = iList;
 		

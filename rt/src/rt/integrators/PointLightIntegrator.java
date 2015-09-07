@@ -53,7 +53,7 @@ public class PointLightIntegrator implements Integrator {
 			Vector3f lightVec = new Vector3f(hitRecord.position.x-lightPoint.x, hitRecord.position.y-lightPoint.y, hitRecord.position.z-lightPoint.z);
 			lightVec.negate();
 			
-			double lightLenght= lightVec.length();
+			double lightLenght= lightVec.lengthSquared();
 			
 			lightVec.normalize();
 			Spectrum lightColor= lightHit.material.evaluateEmission(lightHit, lightVec);
