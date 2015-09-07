@@ -14,6 +14,7 @@ import rt.intersectables.IntersectableList;
 import rt.intersectables.Plane;
 import rt.intersectables.Sphere;
 import rt.lightsources.PointLight;
+import rt.materials.BlinnPhong;
 import rt.materials.Diffuse;
 import rt.samplers.OneSamplerFactory;
 import rt.tonemappers.ClampTonemapper;
@@ -58,6 +59,7 @@ public class CameraTestScene extends Scene {
 		Plane p4 = new Plane(new Vector3f(0.f, -1.f, 0.f), 1.f);
 		Plane p5 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
 		Sphere sCenter = new Sphere(new Point3f(0, 0, 0), 1f);
+		sCenter.material = new BlinnPhong();
 		
 		IntersectableList iList = new IntersectableList();
 		// Some planes are left out

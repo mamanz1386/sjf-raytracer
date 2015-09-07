@@ -45,8 +45,7 @@ public class PointLightIntegrator implements Integrator {
 			scaled.scale(2);
 			scaled.scale(w.dot(n));
 			
-			Spectrum diffuse = hitRecord.material.evaluateBRDF(hitRecord, StaticVecmath.negate(w),
-					StaticVecmath.sub(w, scaled));
+			Spectrum diffuse = hitRecord.material.evaluateBRDF(hitRecord, w, StaticVecmath.sub(scaled, w));
 			LightGeometry light0 = lightList.get(0);
 			HitRecord lightHit = light0.sample(null);
 			Point3f lightPoint = lightHit.position;
