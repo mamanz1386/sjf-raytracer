@@ -16,7 +16,7 @@ public class TriangleTest extends Scene {
 	public TriangleTest()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/TriangleTest");
+		outputFilename = new String("../output/testscenes/TriangleTest123");
 		
 		// Image width and height in pixels
 		width = 512;
@@ -31,7 +31,7 @@ public class TriangleTest extends Scene {
 		Vector3f up = new Vector3f(0.f, 1.f, 0.f);
 		float fov = 60.f;
 		float aspect = (float)width/(float)height;
-		camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);
 		tonemapper = new ClampTonemapper();
 		

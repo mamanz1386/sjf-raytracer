@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutionException;
 import rt.renderers.Renderer;
 import rt.renderers.SingleThreadedRenderer;
 import rt.testscenes.CameraTestScene;
+import rt.testscenes.TeapotShadowTest;
+import rt.testscenes.TriangleTest;
 
 /**
  * The main rendering loop. Provides multi-threading support. The {@link Main#scene} to be rendered
@@ -18,7 +20,7 @@ public class Main {
 	/** 
 	 * The scene to be rendered.
 	 */
-	public static Scene scene = new CameraTestScene();
+	public static Scene scene = new TeapotShadowTest();
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			

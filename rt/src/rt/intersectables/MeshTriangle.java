@@ -1,5 +1,9 @@
 package rt.intersectables;
 
+import javax.vecmath.Matrix3f;
+import javax.vecmath.Point3f;
+import javax.vecmath.Vector3f;
+
 import rt.HitRecord;
 import rt.Intersectable;
 import rt.Ray;
@@ -47,13 +51,62 @@ public class MeshTriangle implements Intersectable {
 		float z1 = vertices[v1*3+2];
 		float z2 = vertices[v2*3+2];
 		
+		Point3f a = new Point3f(x0,y0,z0);
+		Point3f b = new Point3f(x1,y1,z1);
+		Point3f c = new Point3f(x2,y2,z2);
+		
+		Vector3f e = r.origin;
+		Vector3f d = r.direction;
+		
+		Matrix3f me = new Matrix3f();
+		me.m00 = a.x - b.x;
+		me.m10 = a.y - b.y;
+		me.m20 = a.z - b.z;
+		me.m01 = a.x - c.x;
+		me.m11 = a.y - c.y;
+		me.m21 = a.z - c.z;
+		me.m02 = d.x;
+		me.m12 = d.y;
+		me.m22 = d.z;
+		
+		Vector3f m = new Vector3f(a.x - e.x, a.y - e.y, a.z - e.z);
+		
+		me.invert();
+		
+		me.transform(m);
+		
+		float t = m.z;
+		float beta = m.x;
+		float gamma = m.y;
+		float alpha = 1 -beta -gamma;
+		if(beta>0 && gamma>0 && beta+gamma<1){
+			Point3f p = r.pointAt(t);
+			
+			float normals[] = mesh.normals;
+			
+			float nx0 = normals[v0*3];
+			float nx1 = normals[v1*3];
+			float nx2 = normals[v2*3];
+			float ny0 = normals[v0*3+1];
+			float ny1 = normals[v1*3+1];
+			float ny2 = normals[v2*3+1];
+			float nz0 = normals[v0*3+2];
+			float nz1 = normals[v1*3+2];
+			float nz2 = normals[v2*3+2];
+			
+			Vector3f normal = new Vector3f(alpha*nx0 + beta*nx1 + gamma*nx2, alpha*ny0 + beta*ny1 + gamma*ny2, alpha*nz0 + beta*nz1 + gamma*nz2);
+			
+			normal.normalize();
+			return new HitRecord(t, p, normal, r.direction, this, mesh.material, 0, 0);
+		}
+		
 		return null;
 	}
 
 	@Override
 	public AxisAlignedBox getBoundingBox() {
 		// TODO Generate some useful bounding box
-		return null;
+		return AxisAlignedBox.INFINITE_BOUNDING_BOX;
 	}
 
 	@Override
@@ -61,5 +114,5 @@ public class MeshTriangle implements Intersectable {
 		// TODO Compute surface area of this triangle.
 		return 0;
 	}
-	
+
 }
