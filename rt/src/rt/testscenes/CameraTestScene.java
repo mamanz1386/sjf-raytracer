@@ -20,10 +20,10 @@ public class CameraTestScene extends Scene {
 	public CameraTestScene()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/Camera");
+		outputFilename = new String("../output/testscenes/CameraGross");
 		
 		// Image width and height in pixels
-		width = 1280;
+		width = 1280*2;
 		height = 720;
 		
 		// Number of samples per pixel
@@ -35,8 +35,8 @@ public class CameraTestScene extends Scene {
 		Vector3f up = new Vector3f(0.2f, 1.f, 0.f);
 		float fov = 60.f;
 		float aspect = 16.f/9.f;
-		//camera = new FixedCamera(600, 600);
-		camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new FixedCamera(600, 600);
+		//camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);
 		tonemapper = new ClampTonemapper();
 		
