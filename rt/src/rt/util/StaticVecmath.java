@@ -18,6 +18,10 @@ public class StaticVecmath {
 		return r;
 	}
 	
+	public static Vector3f scale(Tuple3f v, float scalar){
+		return new Vector3f(v.x*scalar, v.y*scalar, v.z*scalar);
+	}
+	
 	public static Vector3f negate(Tuple3f v)
 	{
 		Vector3f r = new Vector3f(v);
