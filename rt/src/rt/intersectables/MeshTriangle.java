@@ -106,7 +106,7 @@ public class MeshTriangle implements Intersectable {
 	@Override
 	public AxisAlignedBox getBoundingBox() {
 
-float vertices[] = mesh.vertices;
+		float vertices[] = mesh.vertices;
 		
 		// Access the triangle vertices as follows (same for the normals):		
 		// 1. Get three vertex indices for triangle
