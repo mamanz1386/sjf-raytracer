@@ -6,11 +6,12 @@ import rt.HitRecord;
 import rt.Material;
 import rt.Spectrum;
 import rt.Material.ShadingSample;
+import rt.util.PerlinNoiseGenerator;
 
-public class ProceduraleDiffuse implements Material{
+public class PerlinNoise implements Material{
 
 Spectrum kd;
-int i;
+private PerlinNoiseGenerator generator;
 	
 	/**
 	 * Note that the parameter value {@param kd} is the diffuse reflectance,
@@ -20,20 +21,20 @@ int i;
 	 * 
 	 * @param kd the diffuse reflectance
 	 */
-	public ProceduraleDiffuse(Spectrum kd)
+	public PerlinNoise(Spectrum kd)
 	{
 		this.kd = new Spectrum(kd);
 		// Normalize
 		this.kd.mult(1/(float)Math.PI);
+		this.generator = new PerlinNoiseGenerator();
 	}
 	
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public ProceduraleDiffuse(int i)
+	public PerlinNoise()
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
-		this.i = i;
 	}
 
 	/**
@@ -45,58 +46,9 @@ int i;
 	 */
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
 		
-		/*boolean isPositive = hitRecord.position.x>0;
-		boolean condition = false;
-		if(isPositive)
-			condition = 10*hitRecord.position.x%2 < 1;
-		else
-			condition = Math.abs(10*hitRecord.position.x%2) >= 1;*/
+		generator.noise3((float) hitRecord.position.x , (float) hitRecord.position.y, (float) hitRecord.position.z);
 		
-		float restx= 10*hitRecord.position.x % 5;
-		if(restx<0)
-			restx+=5;
-		
-		float resty= 10*hitRecord.position.y % 5;
-		if(resty<0)
-			resty+=5;
-		
-		float restz= 10*hitRecord.position.y % 5;
-		if(restz<0)
-			restz+=5;
-		
-		int resta;
-		int restb;
-		
-		switch (i){
-			case 0: resta=(int)restx; restb=(int)resty; break;
-			case 1: resta=(int)restx; restb=(int)restz; break;
-			case 2: resta=(int)resty; restb=(int)restz; break;
-			default: return new Spectrum(1,1,1);
-		
-		}
-		
-		if(resta%5==0 || restb%5==0)
-			return new Spectrum(1,1,1);
-		return new Spectrum (0,0,0);
-		
-		//Schachbrett
-		/*if((restx+resty)%2==0)
-			return new Spectrum(1,1,1);
-		return new Spectrum(0,0,0);*/
-		
-		
-		// 6 gestreift
-		/*switch((int)restx){
-		case 0: return new Spectrum(0.6f, 0.2f, 0.8f);
-		case 1: return new Spectrum(0,0,1);
-		case 2: return new Spectrum(0,1,0);
-		case 3: return new Spectrum(1,1,0);
-		case 4: return new Spectrum(1,0.6f,0);
-		case 5: return new Spectrum(1,0,0);
-		default: return new Spectrum(1,1,1);
-		}*/
-		
-		//return new Spectrum(kd);
+		return generator.noise3;
 	}
 
 	public boolean hasSpecularReflection()

@@ -1,5 +1,6 @@
 package rt.testscenes;
 
+import java.io.File;
 import java.io.IOException;
 
 import rt.*;
@@ -29,7 +30,7 @@ public class InstancingTeapots extends Scene {
 	 */
 	public InstancingTeapots()
 	{	
-		outputFilename = new String("../output/testscenes/Instancing123");
+		outputFilename = new String("../output/testscenes/InstancingTeapots");
 		
 		// Specify integrator to be used
 		integratorFactory = new PointLightIntegratorFactory();
@@ -77,8 +78,7 @@ public class InstancingTeapots extends Scene {
 		Mesh mesh;
 		try
 		{
-			
-			mesh = ObjReader.read("..\\obj\\teapot.obj", 1.f);
+			mesh = ObjReader.read("../obj/shuttle.obj", 1.f);
 		} catch(IOException e) 
 		{
 			System.out.printf("Could not read .obj file\n");
