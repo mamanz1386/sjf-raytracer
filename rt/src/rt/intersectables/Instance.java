@@ -33,7 +33,6 @@ public class Instance implements Intersectable {
 
 	@Override
 	public HitRecord intersect(Ray r) {
-		// TODO: Create instance ray, intersect enclosed intersectable with it.
 		this.r = r;
 		Point3f origin = new Point3f(r.origin);
 		Vector3f direction = r.direction;
@@ -63,7 +62,6 @@ public class Instance implements Intersectable {
 
 	@Override
 	public AxisAlignedBox getBoundingBox() {
-		// TODO Auto-generated method stub
 		t.transform(intersectable.getBoundingBox().min);
 		t.transform(intersectable.getBoundingBox().max);
 		
@@ -72,7 +70,6 @@ public class Instance implements Intersectable {
 
 	@Override
 	public float surfaceArea() {
-		// TODO Auto-generated method stub
 		intersectable.surfaceArea();
 		float scale = t.getScale();
 		

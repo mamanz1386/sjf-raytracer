@@ -10,6 +10,7 @@ import rt.Material.ShadingSample;
 public class ProceduraleDiffuse implements Material{
 
 Spectrum kd;
+int i;
 	
 	/**
 	 * Note that the parameter value {@param kd} is the diffuse reflectance,
@@ -29,9 +30,10 @@ Spectrum kd;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public ProceduraleDiffuse()
+	public ProceduraleDiffuse(int i)
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
+		this.i = i;
 	}
 
 	/**
@@ -50,17 +52,32 @@ Spectrum kd;
 		else
 			condition = Math.abs(10*hitRecord.position.x%2) >= 1;*/
 		
-		float restx= 10*hitRecord.position.x % 6;
+		float restx= 10*hitRecord.position.x % 5;
 		if(restx<0)
-			restx+=6;
+			restx+=5;
 		
-		float resty= 10*hitRecord.position.y % 2;
+		float resty= 10*hitRecord.position.y % 5;
 		if(resty<0)
-			resty+=2;
-		restx= (int)restx;
-		resty= (int)resty;
+			resty+=5;
 		
+		float restz= 10*hitRecord.position.y % 5;
+		if(restz<0)
+			restz+=5;
 		
+		int resta;
+		int restb;
+		
+		switch (i){
+			case 0: resta=(int)restx; restb=(int)resty; break;
+			case 1: resta=(int)restx; restb=(int)restz; break;
+			case 2: resta=(int)resty; restb=(int)restz; break;
+			default: resta=(int)restx; restb=(int)resty;
+		
+		}
+		
+		if(resta%5==0 || restb%5==0)
+			return new Spectrum(1,1,1);
+		return new Spectrum (0,0,0);
 		
 		//Schachbrett
 		/*if((restx+resty)%2==0)
@@ -69,7 +86,7 @@ Spectrum kd;
 		
 		
 		// 6 gestreift
-		switch((int)restx){
+		/*switch((int)restx){
 		case 0: return new Spectrum(0.6f, 0.2f, 0.8f);
 		case 1: return new Spectrum(0,0,1);
 		case 2: return new Spectrum(0,1,0);
@@ -77,7 +94,7 @@ Spectrum kd;
 		case 4: return new Spectrum(1,0.6f,0);
 		case 5: return new Spectrum(1,0,0);
 		default: return new Spectrum(1,1,1);
-		}
+		}*/
 		
 		//return new Spectrum(kd);
 	}
