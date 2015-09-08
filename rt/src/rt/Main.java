@@ -36,7 +36,7 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
 		scene.prepare();
-		Renderer renderer = new m(scene);
+		Renderer renderer = new MultiThreadedRenderer(scene);
 		renderer.render();
 		renderer.writeImageToFile();
 	}
