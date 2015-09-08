@@ -109,10 +109,38 @@ public class MeshTriangle implements Intersectable {
 		return AxisAlignedBox.INFINITE_BOUNDING_BOX;
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public float surfaceArea() {
-		// TODO Compute surface area of this triangle.
-		return 0;
+		float vertices[] = mesh.vertices;
+		
+		// Access the triangle vertices as follows (same for the normals):		
+		// 1. Get three vertex indices for triangle
+		int v0 = mesh.indices[index*3];
+		int v1 = mesh.indices[index*3+1];
+		int v2 = mesh.indices[index*3+2];
+		
+		// 2. Access x,y,z coordinates for each vertex
+		float x0 = vertices[v0*3];
+		float x1 = vertices[v1*3];
+		float x2 = vertices[v2*3];
+		float y0 = vertices[v0*3+1];
+		float y1 = vertices[v1*3+1];
+		float y2 = vertices[v2*3+1];
+		float z0 = vertices[v0*3+2];
+		float z1 = vertices[v1*3+2];
+		float z2 = vertices[v2*3+2];
+		
+		Point3f a = new Point3f(x0,y0,z0);
+		Point3f b = new Point3f(x1,y1,z1);
+		Point3f c = new Point3f(x2,y2,z2);
+		
+		Vector3f bVec = new Vector3f(c.x - a.x, c.y - a.y, c.z - a.z);
+		Vector3f cVec = new Vector3f(b.x - a.x, b.y - a.y, b.z - a.z);
+		Vector3f crossP = new Vector3f(0,0,0);
+		crossP.cross(bVec, cVec);
+
+		return crossP.length()/2;
 	}
 
 }
