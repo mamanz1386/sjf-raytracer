@@ -29,7 +29,7 @@ public class InstancingTeapots extends Scene {
 	 */
 	public InstancingTeapots()
 	{	
-		outputFilename = new String("../output/testscenes/Instancing");
+		outputFilename = new String("../output/testscenes/Instancing123");
 		
 		// Specify integrator to be used
 		integratorFactory = new PointLightIntegratorFactory();

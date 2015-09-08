@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutionException;
 import rt.renderers.Renderer;
 import rt.renderers.SingleThreadedRenderer;
 import rt.testscenes.CameraTestScene;
+import rt.testscenes.InstancingTeapots;
+import rt.testscenes.InstancingTest;
 import rt.testscenes.TeapotShadowTest;
 import rt.testscenes.TriangleTest;
 
@@ -20,7 +22,7 @@ public class Main {
 	/** 
 	 * The scene to be rendered.
 	 */
-	public static Scene scene = new TeapotShadowTest();
+	public static Scene scene = new InstancingTeapots();
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			

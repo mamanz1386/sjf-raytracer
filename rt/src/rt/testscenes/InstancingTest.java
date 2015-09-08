@@ -20,7 +20,7 @@ public class InstancingTest extends Scene {
 	public InstancingTest()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/InstancingTest");
+		outputFilename = new String("../output/testscenes/InstancingTest123");
 		
 		// Image width and height in pixels
 		width = 1280;
