@@ -23,9 +23,14 @@ public class Mesh extends Aggregate {
 	public float[] vertices;
 	
 	/**
-	 * Array of triangle normals (one normal per vertex). Stores x,y,z coordinates for each normal consecutively.
+	 * Array of triangle normals (one per vertex). Stores x,y,z coordinates for each normal consecutively.
 	 */
 	public float[] normals;
+	
+	/**
+	 * Array of texture coordinates (one per vertex). Stores x,y coordinates for each texture coordinate consecutively.
+	 */
+	public float[] texCoords;
 	
 	/**
 	 * Index array. Each triangle is defined by three consecutive
@@ -37,7 +42,7 @@ public class Mesh extends Aggregate {
 	/**
 	 * Array of triangles stored in the mesh.
 	 */
-	public MeshTriangle[] triangles;
+	private MeshTriangle[] triangles;
 	
 	/**
 	 * A material.
@@ -52,7 +57,7 @@ public class Mesh extends Aggregate {
 	/**
 	 * Make a mesh from arrays with vertices, normals, and indices.
 	 */
-	public Mesh(float[] vertices, float[] normals, int[] indices)
+	public Mesh(float[] vertices, float[] normals, float[] texCoordsFinal, int[] indices)
 	{
 		material = new Diffuse(new Spectrum(1.f, 1.f, 1.f));
 		
@@ -72,7 +77,7 @@ public class Mesh extends Aggregate {
 			triangles[i] = triangle;
 		}
 	}
-	
+
 	public Iterator<Intersectable> iterator() {
 		return new MeshIterator(triangles);
 	}
