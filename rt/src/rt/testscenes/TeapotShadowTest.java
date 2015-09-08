@@ -83,6 +83,8 @@ public class TeapotShadowTest extends Scene {
 		{
 			
 			mesh = ObjReader.read("../obj/teapot.obj", 1.f);
+			mesh.material = new ProceduraleDiffuse();
+			
 			timer.reset();
 			accelerator = new BSPAccelerator(mesh);
 			System.out.printf("Accelerator computed in %d ms.\n", timer.timeElapsed());
