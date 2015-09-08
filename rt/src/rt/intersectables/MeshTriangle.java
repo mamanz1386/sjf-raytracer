@@ -105,8 +105,69 @@ public class MeshTriangle implements Intersectable {
 
 	@Override
 	public AxisAlignedBox getBoundingBox() {
-		// TODO Generate some useful bounding box
-		return AxisAlignedBox.INFINITE_BOUNDING_BOX;
+
+float vertices[] = mesh.vertices;
+		
+		// Access the triangle vertices as follows (same for the normals):		
+		// 1. Get three vertex indices for triangle
+		int v0 = mesh.indices[index*3];
+		int v1 = mesh.indices[index*3+1];
+		int v2 = mesh.indices[index*3+2];
+		
+		// 2. Access x,y,z coordinates for each vertex
+		float x0 = vertices[v0*3];
+		float x1 = vertices[v1*3];
+		float x2 = vertices[v2*3];
+		float y0 = vertices[v0*3+1];
+		float y1 = vertices[v1*3+1];
+		float y2 = vertices[v2*3+1];
+		float z0 = vertices[v0*3+2];
+		float z1 = vertices[v1*3+2];
+		float z2 = vertices[v2*3+2];
+		
+		Point3f a = new Point3f(x0,y0,z0);
+		Point3f b = new Point3f(x1,y1,z1);
+		Point3f c = new Point3f(x2,y2,z2);
+		
+		float sx = smallest(a.x, b.x, c.x);
+		float sy = smallest(a.y, b.y, c.y);
+		float sz = smallest(a.z, b.z, c.z);
+		
+		Point3f smallest = new Point3f(sx, sy, sz);
+		
+		float bx = biggest(a.x, b.x, c.x);
+		float by = biggest(a.y, b.y, c.y);
+		float bz = biggest(a.z, b.z, c.z);
+		
+		Point3f biggest = new Point3f(bx, by, bz);
+		
+		return new AxisAlignedBox(smallest, biggest);
+		
+		//return AxisAlignedBox.INFINITE_BOUNDING_BOX;
+	}
+	
+	public float smallest(float a, float b, float c){
+		float smallest;
+		smallest = a;
+		
+		if(b<smallest)
+			smallest = b;
+		if(c<smallest)
+			smallest = c;
+		
+		return smallest;
+	}
+	
+	public float biggest(float a, float b, float c){
+		float biggest;
+		biggest = a;
+		
+		if(b>biggest)
+			biggest = b;
+		if(c>biggest)
+			biggest = c;
+		
+		return biggest;
 	}
 
 	@SuppressWarnings("null")

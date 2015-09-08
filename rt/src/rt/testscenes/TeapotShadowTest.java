@@ -3,6 +3,7 @@ package rt.testscenes;
 import java.io.IOException;
 
 import rt.*;
+import rt.accelerators.BSPAccelerator;
 import rt.cameras.*;
 import rt.films.*;
 import rt.integrators.*;
@@ -10,6 +11,7 @@ import rt.intersectables.*;
 import rt.lightsources.*;
 import rt.samplers.*;
 import rt.tonemappers.*;
+import rt.util.Timer;
 import rt.materials.*;
 
 import javax.vecmath.Matrix4f;
@@ -74,11 +76,18 @@ public class TeapotShadowTest extends Scene {
 		objects.add(plane);
 		
 		// Add objects
+		Timer timer = new Timer();
 		Mesh mesh;
+		BSPAccelerator accelerator;
 		try
 		{
 			
 			mesh = ObjReader.read("../obj/teapot.obj", 1.f);
+			timer.reset();
+			accelerator = new BSPAccelerator(mesh);
+			System.out.printf("Accelerator computed in %d ms.\n", timer.timeElapsed());
+			
+			objects.add(accelerator); 	
 		} catch(IOException e) 
 		{
 			System.out.printf("Could not read .obj file\n");
