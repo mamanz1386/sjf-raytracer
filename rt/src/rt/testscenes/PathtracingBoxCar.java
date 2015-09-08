@@ -37,7 +37,7 @@ public class PathtracingBoxCar extends Scene {
 		int width = 512;
 		int height = 512;
 		float aspect = (float)width/(float)height;
-		camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);						
 		tonemapper = new ClampTonemapper();
 		

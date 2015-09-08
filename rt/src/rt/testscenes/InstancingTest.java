@@ -35,7 +35,7 @@ public class InstancingTest extends Scene {
 		Vector3f up = new Vector3f(0.f, 1.f, 0.f);
 		float fov = 60.f;
 		float aspect = (float)width/(float)height;
-		camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);
 		tonemapper = new ClampTonemapper();
 		

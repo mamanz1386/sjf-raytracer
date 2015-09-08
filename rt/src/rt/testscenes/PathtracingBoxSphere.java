@@ -32,7 +32,7 @@ public class PathtracingBoxSphere extends Scene {
 		int width = 128;
 		int height = 128;
 		float aspect = (float)width/(float)height;
-		camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);						
 		tonemapper = new ClampTonemapper();
 		
