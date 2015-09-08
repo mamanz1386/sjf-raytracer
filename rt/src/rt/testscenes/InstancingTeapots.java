@@ -1,5 +1,6 @@
 package rt.testscenes;
 
+import java.io.File;
 import java.io.IOException;
 
 import rt.*;
@@ -29,7 +30,7 @@ public class InstancingTeapots extends Scene {
 	 */
 	public InstancingTeapots()
 	{	
-		outputFilename = new String("../output/testscenes/Instancing123");
+		outputFilename = new String("../output/testscenes/InstancingTeapots");
 		
 		// Specify integrator to be used
 		integratorFactory = new PointLightIntegratorFactory();
@@ -42,8 +43,8 @@ public class InstancingTeapots extends Scene {
 		Vector3f lookAt = new Vector3f(0.f,0.f,0.f);
 		Vector3f up = new Vector3f(0.f,1.f,0.f);
 		float fov = 60.f;
-		int width = 256;
-		int height = 256;
+		int width = 256*2;
+		int height = 256*2;
 		float aspect = (float)width/(float)height;
 		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);						
@@ -77,8 +78,7 @@ public class InstancingTeapots extends Scene {
 		Mesh mesh;
 		try
 		{
-			
-			mesh = ObjReader.read("..\\obj\\teapot.obj", 1.f);
+			mesh = ObjReader.read("../obj/shuttle.obj", 1.f);
 		} catch(IOException e) 
 		{
 			System.out.printf("Could not read .obj file\n");

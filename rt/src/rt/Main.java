@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutionException;
 
+import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
 import rt.renderers.SingleThreadedRenderer;
 import rt.testscenes.CameraTestScene;
@@ -22,12 +23,12 @@ public class Main {
 	/** 
 	 * The scene to be rendered.
 	 */
-	public static Scene scene = new TeapotShadowTest();
+	public static Scene scene = new InstancingTeapots();
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
 		scene.prepare();
-		Renderer renderer = new SingleThreadedRenderer(scene);
+		Renderer renderer = new m(scene);
 		renderer.render();
 		renderer.writeImageToFile();
 	}
