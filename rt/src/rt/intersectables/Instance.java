@@ -16,6 +16,8 @@ public class Instance implements Intersectable {
 
 	private Intersectable intersectable;
 	private Matrix4f t;
+	private Matrix4f inv = new Matrix4f();
+	
 	private Material material;
 	private Ray r;
 
@@ -25,7 +27,7 @@ public class Instance implements Intersectable {
 	//	Matrix4f inv = new Matrix4f();
 	//	inv.invert(t);	
 		this.t = t;
-		
+		inv.invert(t);
 		this.material = new Diffuse(); //default material
 	}
 
@@ -33,8 +35,6 @@ public class Instance implements Intersectable {
 	public HitRecord intersect(Ray r) {
 		// TODO: Create instance ray, intersect enclosed intersectable with it.
 		this.r = r;
-		Matrix4f inv = new Matrix4f();
-		inv.invert(t);
 		Point3f origin = new Point3f(r.origin);
 		Vector3f direction = r.direction;
 		
