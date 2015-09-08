@@ -63,19 +63,20 @@ public class Instance implements Intersectable {
 
 	@Override
 	public AxisAlignedBox getBoundingBox() {
-		// TODO Auto-generated method stub
-		t.transform(intersectable.getBoundingBox().min);
-		t.transform(intersectable.getBoundingBox().max);
+		AxisAlignedBox bb = intersectable.getBoundingBox();
+		Point3f instanceMin = new Point3f(bb.min);
+		Point3f instanceMax = new Point3f(bb.max);
 		
-		return intersectable.getBoundingBox();
+		t.transform(instanceMin);
+		t.transform(instanceMax);
+		
+		return new AxisAlignedBox(instanceMin, instanceMax);
 	}
 
 	@Override
 	public float surfaceArea() {
-		// TODO Auto-generated method stub
 		intersectable.surfaceArea();
 		float scale = t.getScale();
-		
 		return intersectable.surfaceArea()*scale;
 	}
 }
