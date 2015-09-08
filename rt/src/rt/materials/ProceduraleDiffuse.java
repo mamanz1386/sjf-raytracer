@@ -71,7 +71,7 @@ int i;
 			case 0: resta=(int)restx; restb=(int)resty; break;
 			case 1: resta=(int)restx; restb=(int)restz; break;
 			case 2: resta=(int)resty; restb=(int)restz; break;
-			default: resta=(int)restx; restb=(int)resty;
+			default: return new Spectrum(1,1,1);
 		
 		}
 		

@@ -56,23 +56,23 @@ public class TeapotShadowTest extends Scene {
 				
 		// Box
 		Plane plane = new Plane(new Vector3f(0.f, 1.f, 0.f), 1.f);
-		plane.material = new ProceduraleDiffuse(1);
+		plane.material = new ProceduraleDiffuse(3);
 		objects.add(plane);		
 		
 		plane = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		plane.material = new ProceduraleDiffuse(0);
+		plane.material = new ProceduraleDiffuse(3);
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(-1.f, 0.f, 0.f), 1.f);
-		plane.material = new ProceduraleDiffuse(2);
+		plane.material = new ProceduraleDiffuse(3);
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(1.f, 0.f, 0.f), 1.f);
-		plane.material = new ProceduraleDiffuse(2);
+		plane.material = new ProceduraleDiffuse(3);
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(0.f, -1.f, 0.f), 1.f);
-		plane.material = new ProceduraleDiffuse(1);
+		plane.material = new ProceduraleDiffuse(3);
 		objects.add(plane);
 		
 		// Add objects
