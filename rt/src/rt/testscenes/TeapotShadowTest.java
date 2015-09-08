@@ -93,7 +93,6 @@ public class TeapotShadowTest extends Scene {
 			System.out.printf("Could not read .obj file\n");
 			return;
 		}
-		objects.add(mesh);	
 						
 		root = objects;
 		
