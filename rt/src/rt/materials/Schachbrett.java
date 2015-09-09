@@ -5,12 +5,12 @@ import javax.vecmath.Vector3f;
 import rt.HitRecord;
 import rt.Material;
 import rt.Spectrum;
+import rt.Material.ShadingSample;
 
-public class ProceduraleDiffuse implements Material{
+public class Schachbrett implements Material{
 
 Spectrum kd;
-int i;
-
+	
 	/**
 	 * Note that the parameter value {@param kd} is the diffuse reflectance,
 	 * which should be in the range [0,1], a value of 1 meaning all light
@@ -19,7 +19,7 @@ int i;
 	 * 
 	 * @param kd the diffuse reflectance
 	 */
-	public ProceduraleDiffuse(Spectrum kd)
+	public Schachbrett(Spectrum kd)
 	{
 		this.kd = new Spectrum(kd);
 		// Normalize
@@ -29,10 +29,9 @@ int i;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public ProceduraleDiffuse(int i)
+	public Schachbrett()
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
-		this.i = i;
 	}
 
 	/**
@@ -51,37 +50,26 @@ int i;
 		else
 			condition = Math.abs(10*hitRecord.position.x%2) >= 1;*/
 		
-		float restx= 10*hitRecord.position.x % 5;
+		float restx= 10*hitRecord.position.x % 2;
 		if(restx<0)
-			restx+=5;
+			restx+=2;
 		
-		float resty= 10*hitRecord.position.y % 5;
+		float resty= 10*hitRecord.position.y % 2;
 		if(resty<0)
-			resty+=5;
+			resty+=2;
 		
-		float restz= 10*hitRecord.position.y % 5;
+		float restz= 10*hitRecord.position.z % 2;
 		if(restz<0)
-			restz+=5;
+			restz+=2;
 		
-		int resta;
-		int restb;
+		restx= (int)restx;
+		resty= (int)resty;
 		
-		switch (i){
-			case 0: resta=(int)restx; restb=(int)resty; break;
-			case 1: resta=(int)restx; restb=(int)restz; break;
-			case 2: resta=(int)resty; restb=(int)restz; break;
-			default: return new Spectrum(1,1,1);
-		
-		}
-		
-		if(resta%5==0 || restb%5==0)
-			return new Spectrum(1,1,1);
-		return new Spectrum (0,0,0);
 		
 		//Schachbrett
-		/*if((restx+resty)%2==0)
+		if((restx+resty)%2==0)
 			return new Spectrum(1,1,1);
-		return new Spectrum(0,0,0);*/
+		return new Spectrum(0,0,0);
 		
 		
 		// 6 gestreift
@@ -141,5 +129,4 @@ int i;
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
 }
