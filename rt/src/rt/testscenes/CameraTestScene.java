@@ -53,13 +53,15 @@ public class CameraTestScene extends Scene {
 		// Define some objects to be added to the scene. 
 		// 5 planes can be used to define a box (with never ending walls).
 		Plane p1 = new Plane(new Vector3f(1.f, 0.f, 0.f), 1.f);
+		//p1.material = new BlinnPhong();
 		Plane p2 = new Plane(new Vector3f(-1.f, 0.f, 0.f), 1.f);
-		p2.material = new Diffuse(new Spectrum(1f, 0f, 0f));
+		p2.material = new Diffuse(new Spectrum(.8f, 0.f, 0.f));
 		Plane p3 = new Plane(new Vector3f(0.f, 1.f, 0.f), 1.f);
 		Plane p4 = new Plane(new Vector3f(0.f, -1.f, 0.f), 1.f);
+		p4.material = new Diffuse(new Spectrum(1, 1, 0));
 		Plane p5 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
 		Sphere sCenter = new Sphere(new Point3f(0, 0, 0), 1f);
-		sCenter.material = new BlinnPhong();
+		sCenter.material = new BlinnPhong(new Spectrum(0.8f, 0.8f, 0.8f), new Spectrum(.4f, .4f, .4f), 50.f);
 		
 		IntersectableList iList = new IntersectableList();
 		// Some planes are left out
@@ -73,8 +75,10 @@ public class CameraTestScene extends Scene {
 		this.root = iList;
 		
 		// Light sources
-		LightGeometry pointLight = new PointLight(new Vector3f(0.f, 0.f, 3.f), new Spectrum(10.f, 10.f, 10.f));
+		LightGeometry l1 = new PointLight(new Vector3f(0.f, 0.f, 5.f), new Spectrum(5.f, 5.f, 5.f));
+		LightGeometry l2 = new PointLight(new Vector3f(0.9f, 0.9f, 0f), new Spectrum(1f, 1f, 1f));
 		lightList = new LightList();
-		lightList.add(pointLight);
+		lightList.add(l1);
+		lightList.add(l2);
 	}
 }

@@ -55,7 +55,6 @@ public class HitRecord  {
 	 */
 	public float p;
 	
-	
 	public HitRecord ()
 	{
 		// do nothing
