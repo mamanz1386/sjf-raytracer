@@ -43,10 +43,12 @@ Spectrum kd;
 	 */
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
 		
-	    float zx = (float) (3.0 * (hitRecord.position.x - 0.5));
-	    float zy = (float) (2.0 * (hitRecord.position.y - 0.5));
-	    float cx=3;
-	    float cy=2;
+	    float zx = (float) ((0.1*hitRecord.position.x-0.3));
+	    float zy = (float) ((0.1*hitRecord.position.y-0.3));
+	    
+	   float cx = 0.3425f;
+	   float cy = 0.41f;
+
 	    
 	    int i;
 	    int iter = 100;
@@ -58,8 +60,15 @@ Spectrum kd;
 	        zx = x;
 	        zy = y;
 	    }
-
-	    return new Spectrum((float)i/(float)iter, 1, 1);
+	    
+	    float c =(float)i/(float)iter;
+	    
+	    float g = (float) (1-2*Math.abs(c-0.5));
+	    float r = (float) (1-2*c);
+	    float b = (float) (2*c-1);
+	    
+	    //System.out.println((float)i);
+	    return new Spectrum(r,g,b);
 	}
 
 	public boolean hasSpecularReflection()
