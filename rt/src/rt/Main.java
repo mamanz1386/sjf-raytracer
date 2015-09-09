@@ -6,10 +6,8 @@ import java.util.concurrent.ExecutionException;
 
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
-import rt.testscenes.InstancingTeapots;
-import rt.testscenes.Plane2D;
+import rt.testscenes.CameraTestScene;
 import rt.testscenes.RefractiveSphere;
-import rt.testscenes.TeapotShadowTest;
 
 /**
  * The main rendering loop. Provides multi-threading support. The {@link Main#scene} to be rendered
@@ -22,8 +20,9 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new Plane2D();
-
+	public static Scene scene = new RefractiveSphere();
+	
+	public static int c=0,i=0,g=0;
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
@@ -31,6 +30,7 @@ public class Main {
 		Renderer renderer = new MultiThreadedRenderer(scene);
 		renderer.render();
 		renderer.writeImageToFile();
+		System.out.println(c+":"+i+":"+g);
 	}
 	
 }

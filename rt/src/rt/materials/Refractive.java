@@ -18,8 +18,7 @@ public class Refractive implements Material{
 	
 	@Override
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Spectrum();
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class Refractive implements Material{
 
 	@Override
 	public boolean hasSpecularReflection() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -38,12 +37,14 @@ public class Refractive implements Material{
 		Vector3f d=StaticVecmath.negate(hitRecord.w);
 		Vector3f reflVec=StaticVecmath.sub(d,StaticVecmath.scale(hitRecord.normal,2*(d.dot(hitRecord.normal))));
 		reflVec.normalize();
+	//	reflVec.negate();
+		//System.out.println(Math.acos(reflVec.dot(hitRecord.normal))+":"+Math.acos(hitRecord.w.dot(hitRecord.normal)));
 		return new ShadingSample(new Spectrum(1, 1, 1), new Spectrum(), reflVec, false, 0);
 	}
 
 	@Override
 	public boolean hasSpecularRefraction() {
-		return true;
+		return false;
 	}
 
 	@Override

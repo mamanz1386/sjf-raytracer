@@ -1,14 +1,17 @@
 package rt.intersectables;
 
-import javax.vecmath.*;
+import javax.vecmath.Point3f;
+import javax.vecmath.Vector3f;
 
 import rt.HitRecord;
 import rt.Intersectable;
+import rt.Main;
 import rt.Material;
 import rt.Ray;
 import rt.Spectrum;
 import rt.accelerators.AxisAlignedBox;
 import rt.materials.Diffuse;
+import rt.util.StaticVecmath;
 
 /**
  * A plane that can be intersected by a ray.
@@ -43,8 +46,9 @@ public class Plane implements Intersectable {
 
 		if (tmp != 0) {
 			float t = -(normal.dot(new Vector3f(r.origin)) + d) / tmp;
-			if (t <= 0)
+			if (t <= 0) {
 				return null;
+			}
 			Point3f position = r.pointAt(t);
 			Vector3f retNormal = new Vector3f(normal);
 			// wIn is incident direction; convention is that it points away from

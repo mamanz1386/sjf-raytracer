@@ -58,4 +58,15 @@ public class Spectrum {
 		b = Math.min(max,  b);
 		b = Math.max(min, b);
 	}
+	
+	@Override
+	public String toString() {
+		return "Spectrum{"+r+":"+g+":"+b+"}";
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Spectrum o=(Spectrum)obj;
+		return (o.r==r&&o.g==g&&o.b==b);
+	}
 }

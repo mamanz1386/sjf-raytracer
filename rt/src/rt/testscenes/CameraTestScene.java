@@ -10,6 +10,7 @@ import rt.Spectrum;
 import rt.cameras.MovableCamera;
 import rt.films.BoxFilterFilm;
 import rt.integrators.PointLightIntegratorFactory;
+import rt.integrators.WhittedIntegratorFactory;
 import rt.intersectables.IntersectableList;
 import rt.intersectables.Plane;
 import rt.intersectables.Sphere;
@@ -27,7 +28,7 @@ public class CameraTestScene extends Scene {
 	public CameraTestScene()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/CameraShade");
+		outputFilename = new String("../output/testscenes/CameraShade2");
 		// Image width and height in pixels
 		width = 1280;
 		height = 720;
@@ -47,7 +48,7 @@ public class CameraTestScene extends Scene {
 		tonemapper = new ClampTonemapper();
 		
 		// Specify which integrator and sampler to use
-		integratorFactory = new PointLightIntegratorFactory();
+		integratorFactory = new WhittedIntegratorFactory();
 		samplerFactory = new OneSamplerFactory();
 		
 		// Define some objects to be added to the scene. 
