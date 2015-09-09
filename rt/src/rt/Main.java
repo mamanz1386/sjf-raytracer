@@ -4,15 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutionException;
 
-import rt.basicscenes.Mandelbrot;
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
-import rt.renderers.SingleThreadedRenderer;
-import rt.testscenes.CameraTestScene;
-import rt.testscenes.InstancingTeapots;
-import rt.testscenes.InstancingTest;
-import rt.testscenes.TeapotShadowTest;
-import rt.testscenes.TriangleTest;
+import rt.testscenes.RefractiveSphere;
 
 /**
  * The main rendering loop. Provides multi-threading support. The {@link Main#scene} to be rendered
@@ -24,7 +18,9 @@ public class Main {
 	/** 
 	 * The scene to be rendered.
 	 */
-	public static Scene scene = new TeapotShadowTest();
+
+	public static Scene scene = new RefractiveSphere();
+
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			

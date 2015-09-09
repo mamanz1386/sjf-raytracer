@@ -43,8 +43,8 @@ public class InstancingTeapots extends Scene {
 		Vector3f lookAt = new Vector3f(0.f,0.f,0.f);
 		Vector3f up = new Vector3f(0.f,1.f,0.f);
 		float fov = 60.f;
-		int width = 256;
-		int height = 256;
+		int width = 256*4;
+		int height = 256*4;
 		float aspect = (float)width/(float)height;
 		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);						

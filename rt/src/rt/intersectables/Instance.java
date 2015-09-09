@@ -33,6 +33,10 @@ public class Instance implements Intersectable {
 
 	@Override
 	public HitRecord intersect(Ray r) {
+<<<<<<< HEAD
+=======
+		// TODO: Create instance ray, intersect enclosed intersectable with it.
+>>>>>>> branch 'master' of https://github.com/sjf2015/sjf-raytracer
 		this.r = r;
 		Point3f origin = new Point3f(r.origin);
 		Vector3f direction = r.direction;
@@ -62,17 +66,31 @@ public class Instance implements Intersectable {
 
 	@Override
 	public AxisAlignedBox getBoundingBox() {
+<<<<<<< HEAD
 		t.transform(intersectable.getBoundingBox().min);
 		t.transform(intersectable.getBoundingBox().max);
 		
 		return intersectable.getBoundingBox();
+=======
+		AxisAlignedBox bb = intersectable.getBoundingBox();
+		Point3f instanceMin = new Point3f(bb.min);
+		Point3f instanceMax = new Point3f(bb.max);
+		
+		t.transform(instanceMin);
+		t.transform(instanceMax);
+		
+		return new AxisAlignedBox(instanceMin, instanceMax);
+>>>>>>> branch 'master' of https://github.com/sjf2015/sjf-raytracer
 	}
 
 	@Override
 	public float surfaceArea() {
 		intersectable.surfaceArea();
 		float scale = t.getScale();
+<<<<<<< HEAD
 		
+=======
+>>>>>>> branch 'master' of https://github.com/sjf2015/sjf-raytracer
 		return intersectable.surfaceArea()*scale;
 	}
 }
