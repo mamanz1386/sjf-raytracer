@@ -31,7 +31,7 @@ public class WhittedIntegrator implements Integrator{
 	@Override
 	public Spectrum integrate(Ray r) {
 		
-		return followRay(r, null, 100);
+		return followRay(r, null, 10);
 		
 	}
 	

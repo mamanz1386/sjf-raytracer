@@ -52,7 +52,7 @@ public class Refractive implements Material{
 		boolean entering=false;
 		float n1;
 		float n2;
-		if(StaticVecmath.negate(hR.w).dot(hR.normal)>=0){
+		if(hR.w.dot(hR.normal)>=0){
 			n1=Main.scene.getStartN();
 			n2=hR.material.getRefractionIndex();
 			entering=true;
@@ -62,8 +62,8 @@ public class Refractive implements Material{
 		}
 		Vector3f lot=new Vector3f(hR.normal);
 		if(!entering)lot.negate();
-		float a1=(float)Math.acos(hR.w.dot(lot));
-		float a2=(float)(n1*Math.sin(a1)/n2);
+		float a1=(float)Math.acos(StaticVecmath.negate(hR.w).dot(lot));
+		float a2=(float)Math.asin((n1*Math.sin(a1)/n2));
 		
 		//System.out.println(a1+":"+a2+":"+n1+":"+n2+":"+entering);
 		
