@@ -7,7 +7,7 @@ import rt.Material;
 import rt.Spectrum;
 import rt.Material.ShadingSample;
 
-public class Fraktal implements Material{
+public class PerlinNoisWood implements Material{
 
 Spectrum kd;
 	
@@ -19,7 +19,7 @@ Spectrum kd;
 	 * 
 	 * @param kd the diffuse reflectance
 	 */
-	public Fraktal(Spectrum kd)
+	public PerlinNoisWood(Spectrum kd)
 	{
 		this.kd = new Spectrum(kd);
 		// Normalize
@@ -29,7 +29,7 @@ Spectrum kd;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public Fraktal()
+	public PerlinNoisWood()
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
 	}
@@ -42,33 +42,30 @@ Spectrum kd;
 	 *  @param hitRecord hit record to be used
 	 */
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
-		
-	    float zx = (float) ((0.1*hitRecord.position.x-0.3));
-	    float zy = (float) ((0.1*hitRecord.position.y-0.3));
+		Spectrum color = new Spectrum();
+		float noiseHeight = 3f;
+		float noiseWidth = 4f;
+		   
+	    float xyPeriod = 12.0f; //number of rings
+	    float turbPower = 0.2f; //makes twists
+	    float turbSize = 32.0f; //initial size of the turbulence
+	     
+	    float x= hitRecord.position.x;
+	    float y= hitRecord.position.y;
 	    
-	    float cx = 0.3425f;
-	    float cy = 0.41f;
+	    float xValue = (x - noiseHeight / 2) / (float)(noiseHeight);
+	    float yValue = (y - noiseWidth / 2) / (float)(noiseWidth);
+	    float distValue = (float) (Math.sqrt(xValue * xValue + yValue * yValue) + turbPower * turbulence(x, y, turbSize) / 256.0);
+	    float sineValue = (float) (128.0 * Math.abs(Math.sin(2 * xyPeriod * distValue * 3.14159)));
+	    color.r = (int)(80 + sineValue);
+	    color.g = (int)(30 + sineValue);
+	    color.b = 30;
 
-	    
-	    int i;
-	    int iter = 100;
-	    for(i=0; i<iter; i++) {
-	        float x = (zx * zx - zy * zy) + cx;
-	        float y = (zy * zx + zx * zy) + cy;
-
-	        if((x * x + y * y) > 4.0) break;
-	        zx = x;
-	        zy = y;
-	    }
-	    
-	    float c =(float)i/(float)iter;
-	    
-	    float g = (float) (1-2*Math.abs(c-0.5));
-	    float r = (float) (1-2*c);
-	    float b = (float) (2*c-1);
-	    
-	    //System.out.println((float)i);
-	    return new Spectrum(r,g,b);
+	    return new Spectrum(color.r/10, color.g/10, color.b/10);
+	}
+	
+	public float turbulence(float x, float y, float turbSize){
+		return (float) (256 * Math.sin(Math.sqrt(x*x + y*y)));
 	}
 
 	public boolean hasSpecularReflection()
@@ -107,5 +104,11 @@ Spectrum kd;
 
 	public ShadingSample getEmissionSample(HitRecord hitRecord, float[] sample) {
 		return new ShadingSample();
+	}
+
+	@Override
+	public float getRefractionIndex() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

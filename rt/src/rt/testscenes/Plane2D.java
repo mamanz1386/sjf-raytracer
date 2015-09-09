@@ -18,6 +18,7 @@ import rt.materials.BlinnPhong;
 import rt.materials.Diffuse;
 import rt.materials.Fraktal;
 import rt.materials.Gitterstruktur;
+import rt.materials.PerlinNoisWood;
 import rt.materials.PerlinNoise;
 import rt.materials.Schachbrett;
 import rt.samplers.OneSamplerFactory;
@@ -51,19 +52,22 @@ public class Plane2D extends Scene{
 		integratorFactory = new PointLightIntegratorFactory();
 		samplerFactory = new OneSamplerFactory();
 		
+		IntersectableList iList = new IntersectableList();
+		
 		// Define some objects to be added to the scene. 
 		// 5 planes can be used to define a box (with never ending walls).
 		Plane p1 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		p1.material = new Gitterstruktur(0);
+		p1.material = new PerlinNoisWood();
+		iList.add(p1);
 		
-		Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
+		/*Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
 		//sphere.material = refractive;
 		sphere.material = new Fraktal();
 		
-		IntersectableList iList = new IntersectableList();
+		
 		// Some planes are left out
-		iList.add(p1);
-		iList.add(sphere);
+		
+		iList.add(sphere);*/
 		
 		this.root = iList;
 		
