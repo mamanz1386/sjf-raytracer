@@ -1,5 +1,6 @@
 package rt.testscenes;
 
+import javax.swing.Box;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -57,17 +58,17 @@ public class Plane2D extends Scene{
 		// Define some objects to be added to the scene. 
 		// 5 planes can be used to define a box (with never ending walls).
 		Plane p1 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		p1.material = new PerlinNoisWood();
+		p1.material = new Gitterstruktur(0);
 		iList.add(p1);
 		
-		/*Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
+		Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
 		//sphere.material = refractive;
-		sphere.material = new Fraktal();
+		sphere.material = new PerlinNoisWood();
 		
 		
 		// Some planes are left out
 		
-		iList.add(sphere);*/
+		iList.add(sphere);
 		
 		this.root = iList;
 		

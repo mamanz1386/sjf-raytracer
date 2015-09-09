@@ -6,10 +6,12 @@ import rt.HitRecord;
 import rt.Material;
 import rt.Spectrum;
 import rt.Material.ShadingSample;
+import rt.util.PerlinNoiseGenerator;
 
 public class PerlinNoisWood implements Material{
 
 Spectrum kd;
+private PerlinNoiseGenerator generator;
 	
 	/**
 	 * Note that the parameter value {@param kd} is the diffuse reflectance,
@@ -32,6 +34,7 @@ Spectrum kd;
 	public PerlinNoisWood()
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
+		this.generator = new PerlinNoiseGenerator();
 	}
 
 	/**
@@ -43,15 +46,16 @@ Spectrum kd;
 	 */
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
 		Spectrum color = new Spectrum();
-		float noiseHeight = 400;
-		float noiseWidth = 600;
+		
+		float y = hitRecord.position.y;
+		float x = hitRecord.position.x;
 		   
-	    float xyPeriod = 30.0f; //number of rings
-	    float turbPower = 0.5f; //makes twists
+	    float xyPeriod = 80.0f; //number of rings
+	    float turbPower = 0.3f; //makes twists
 	    float turbSize = 32.0f; //initial size of the turbulence
 	     
-	    float x= hitRecord.position.x;
-	    float y= hitRecord.position.y;
+	    float noiseHeight= 600;
+	    float noiseWidth= 400;
 	    
 	    float xValue = (x - noiseHeight / 2) / (float)(noiseHeight);
 	    float yValue = (y - noiseWidth / 2) / (float)(noiseWidth);
@@ -65,6 +69,7 @@ Spectrum kd;
 	}
 	
 	public float turbulence(float x, float y, float turbSize){
+		
 		return (float) (256 * Math.sin(Math.sqrt(x*x + y*y)));
 	}
 

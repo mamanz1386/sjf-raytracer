@@ -22,7 +22,7 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new TeapotShadowTest();
+	public static Scene scene = new Plane2D();
 
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
