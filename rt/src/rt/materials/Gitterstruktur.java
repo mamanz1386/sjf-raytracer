@@ -137,4 +137,10 @@ public class Gitterstruktur implements Material{
 		public ShadingSample getEmissionSample(HitRecord hitRecord, float[] sample) {
 			return new ShadingSample();
 		}
+
+		@Override
+		public float getRefractionIndex() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 }

@@ -9,7 +9,7 @@
  * purpose. Use it at your own risk. If there's a problem you get to fix it.
  *
  ****************************************************************************/
-package org.j3d.texture.procedural;
+package rt.util;
 
 import java.util.Random;
 

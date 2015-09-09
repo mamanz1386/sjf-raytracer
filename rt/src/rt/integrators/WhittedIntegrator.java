@@ -13,8 +13,6 @@ import rt.Ray;
 import rt.Sampler;
 import rt.Scene;
 import rt.Spectrum;
-import rt.intersectables.Plane;
-import rt.intersectables.Sphere;
 import rt.util.StaticVecmath;
 
 public class WhittedIntegrator implements Integrator{
@@ -101,7 +99,7 @@ public class WhittedIntegrator implements Integrator{
 			float lightLenght= lightVec.lengthSquared();
 			
 			lightVec.normalize();
-			Point3f hitEpsilon=new Point3f(StaticVecmath.add(h.position,StaticVecmath.scale(lightVec,0.01f)));
+			Point3f hitEpsilon=new Point3f(StaticVecmath.add(h.position,StaticVecmath.scale(lightVec,1f)));
 			
 			
 			Ray lightRay=new Ray(new Vector3f(hitEpsilon),lightVec);
@@ -110,7 +108,7 @@ public class WhittedIntegrator implements Integrator{
 			//if(shadow!=null&&shadow.intersectable instanceof Sphere)System.out.println(!shadow.material.castsShadows());
 			//if(shadow!=null)System.out.println(StaticVecmath.sub(shadow.position,hitEpsilon).lengthSquared()+":"+lightLenght);
 			
-			if(shadow==null||(StaticVecmath.sub(shadow.position,hitEpsilon).lengthSquared()>lightLenght-0.0001F||shadow.t<0)||!shadow.material.castsShadows()){
+			if(shadow==null||(StaticVecmath.sub(shadow.position,hitEpsilon).lengthSquared()>lightLenght-0.0001F||shadow.t<0)||!shadow.material.castsShadows()||false){
 				
 				Spectrum lightColor= lightHit.material.evaluateEmission(lightHit, lightVec);
 				n.normalize();
@@ -123,6 +121,8 @@ public class WhittedIntegrator implements Integrator{
 				
 				lightColor.mult((float) (1f/lightLenght));
 				rLC.add(lightColor);
+			}else {
+				//System.out.println(shadow.intersectable.getClass()+":"+shadow.material.getClass()+":"+shadow.t);
 			}
 		}
 		
