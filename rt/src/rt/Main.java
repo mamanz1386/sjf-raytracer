@@ -10,6 +10,7 @@ import rt.testscenes.InstancingShuttle;
 import rt.testscenes.InstancingTeapots;
 import rt.testscenes.Plane2D;
 import rt.testscenes.RefractiveSphere;
+import rt.testscenes.Skyscraper;
 import rt.testscenes.TeapotShadowTest;
 
 /**
@@ -23,7 +24,7 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new InstancingShuttle();
+	public static Scene scene = new Skyscraper();
 
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
