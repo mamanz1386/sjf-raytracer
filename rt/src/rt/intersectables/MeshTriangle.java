@@ -70,6 +70,8 @@ public class MeshTriangle implements Intersectable {
 		me.m22 = d.z;
 		
 		Vector3f m = new Vector3f(a.x - e.x, a.y - e.y, a.z - e.z);
+		if (me.determinant() == 0)
+			return null;
 		
 		me.invert();
 		

@@ -54,12 +54,6 @@ public class InstancingShuttle extends Scene {
 		
 		// List of objects
 		objects = new IntersectableList();	
-				
-		// Planets
-			Sphere sphere = new Sphere(new Point3f(0, 0, 0), 2f);
-			sphere.material = new PerlinNoise();
-			//objects.add(sphere);
-		
 		
 		// Shuttle
 			Timer timer = new Timer();
@@ -67,7 +61,7 @@ public class InstancingShuttle extends Scene {
 			BSPAccelerator accelerator;
 			Matrix4f translation = new Matrix4f();
 			translation.setIdentity();
-			translation.m23 = (float) 1;
+			translation.setTranslation(new Vector3f(0, 0, 0.5f)); //m23 = (float) 3.5;
 			try
 				{
 					
@@ -87,6 +81,11 @@ public class InstancingShuttle extends Scene {
 					System.out.printf("Could not read .obj file\n");
 					return;
 				}
+			
+		// Planets
+			Sphere sphere = new Sphere(new Point3f(0, 0, 0), 2f);
+			sphere.material = new PerlinNoise();
+			objects.add(sphere);
 				
 		root = objects;
 		
