@@ -47,7 +47,7 @@ public class BlinnTest extends Scene {
 		
 		// Sphere with Blinn material
 		Sphere sphere = new Sphere();
-		sphere.material = new rt.materials.Blinn(new Spectrum(.8f, 0.f, 0.f), new Spectrum(.4f, .4f, .4f), 50.f);
+		sphere.material = new rt.materials.BlinnPhong(new Spectrum(.8f, 0.f, 0.f), new Spectrum(.4f, .4f, .4f), 50.f);
 		
 		IntersectableList intersectableList = new IntersectableList();
 		intersectableList.add(groundPlane);
@@ -59,7 +59,7 @@ public class BlinnTest extends Scene {
 		LightGeometry pl1 = new PointLight(new Vector3f(.5f, .5f, 2.f), new Spectrum(1.f, 1.f, 1.f));
 		LightGeometry pl2 = new PointLight(new Vector3f(-.75f, .75f, 2.f), new Spectrum(1.f, 1.f, 1.f));
 		lightList = new LightList();
-		lightList.add(pl1);
+		//lightList.add(pl1);
 		lightList.add(pl2);
 	}
 }

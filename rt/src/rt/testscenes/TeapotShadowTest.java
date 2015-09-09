@@ -83,7 +83,15 @@ public class TeapotShadowTest extends Scene {
 		{
 			
 			mesh = ObjReader.read("../obj/teapot.obj", 1.f);
+<<<<<<< HEAD
+<<<<<<< HEAD
+			mesh.material = new ProceduraleDiffuse();
+=======
 			mesh.material = new Diffuse();
+>>>>>>> branch 'master' of https://github.com/sjf2015/sjf-raytracer
+=======
+			mesh.material = new Diffuse();
+>>>>>>> branch 'master' of https://github.com/sjf2015/sjf-raytracer
 			
 			timer.reset();
 			accelerator = new BSPAccelerator(mesh);

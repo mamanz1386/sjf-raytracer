@@ -99,6 +99,8 @@ public interface Material {
 	 */
 	public ShadingSample evaluateSpecularRefraction(HitRecord hitRecord);	
 	
+	public float getRefractionIndex();
+	
 	/**
 	 * Calculate a shading sample, given a uniform random sample as input. This 
 	 * method is typically called in a path tracer to sample and evaluate the

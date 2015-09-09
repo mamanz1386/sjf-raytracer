@@ -8,7 +8,7 @@ import rt.Spectrum;
 import rt.util.StaticVecmath;
 
 public class BlinnPhong implements Material{
-Spectrum kd,ks,ka;
+Spectrum kd,ks;//ka;
 float shinyness;
 	
 	/**
@@ -19,18 +19,18 @@ float shinyness;
 	 * 
 	 * @param kd the diffuse reflectance
 	 */
-	public BlinnPhong(Spectrum kd, Spectrum ks, Spectrum ka, float shinyness)
+	public BlinnPhong(Spectrum kd, Spectrum ks, float shinyness) //Spectrum ka)
 	{
 		/*this.s = new Spectrum(s);
 		// Normalize
 		this.s.mult(1/(float)Math.PI);*/
 		this.kd=kd;
 		this.ks=ks;
-		this.ka=ka;
+		//this.ka=ka;
 		
-		this.kd.mult(1/(float)Math.PI);
-		this.ks.mult(1/(float)Math.PI);
-		this.ka.mult(1/(float)Math.PI);
+		//this.kd.mult(1/(float)Math.PI);
+		//this.ks.mult(1/(float)Math.PI);
+		//this.ka.mult(1/(float)Math.PI);
 		this.shinyness=shinyness;
 	}
 	
@@ -39,7 +39,7 @@ float shinyness;
 	 */
 	public BlinnPhong()
 	{
-		this(new Spectrum(0.f, 0.f, 0.f),new Spectrum(1.f, 1.f, 1.f),new Spectrum(1.f, 1.f, 1.f),2000F);
+		this(new Spectrum(1F, 1F, 1F),new Spectrum(0.01F, 0.01F, 0.01F),9F);
 	}
 
 	/**
@@ -49,11 +49,13 @@ float shinyness;
 	 */
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
 		Spectrum sR=new Spectrum(kd);
+		//wIn.normalize();
 		Vector3f h=StaticVecmath.add(wOut, wIn);
 		h.normalize();
 		Spectrum ksC=new Spectrum(ks);
-		System.out.println(h.dot(hitRecord.normal));
+		//System.out.println(h.dot(hitRecord.normal));
 		ksC.mult((float) Math.pow(h.dot(hitRecord.normal),shinyness));
+		//System.out.println(ksC.r+":"+sR.r);
 		sR.add(ksC);
 		return sR;
 	}
@@ -94,5 +96,11 @@ float shinyness;
 
 	public ShadingSample getEmissionSample(HitRecord hitRecord, float[] sample) {
 		return new ShadingSample();
+	}
+
+	@Override
+	public float getRefractionIndex() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

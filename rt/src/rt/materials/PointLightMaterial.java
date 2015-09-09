@@ -85,5 +85,11 @@ public class PointLightMaterial implements Material {
 		return null;
 	}
 
+	@Override
+	public float getRefractionIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

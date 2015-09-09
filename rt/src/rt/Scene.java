@@ -6,6 +6,7 @@ package rt;
 public abstract class Scene {
 
 	public String outputFilename;
+	protected float startN=1;
 	protected int SPP;
 	protected int width;
 	protected int height;
@@ -28,6 +29,10 @@ public abstract class Scene {
 	public String getOutputFilename()
 	{
 		return outputFilename;
+	}
+	
+	public float getStartN() {
+		return startN;
 	}
 	
 	public Camera getCamera() {
