@@ -10,9 +10,6 @@ import rt.Material.ShadingSample;
 public class ProceduraleDiffuse implements Material{
 
 Spectrum kd;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 	
 	/**
 	 * Note that the parameter value {@param kd} is the diffuse reflectance,
@@ -32,7 +29,7 @@ Spectrum kd;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public ProceduraleDiffuse()
+	public ProceduraleDiffuse ()
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
 	}
@@ -148,7 +145,7 @@ int i;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public ProceduraleDiffuse(int i)
+	public ProceduraleDiffuse (int i)
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
 		this.i = i;

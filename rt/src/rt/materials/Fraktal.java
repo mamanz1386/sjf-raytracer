@@ -7,7 +7,7 @@ import rt.Material;
 import rt.Spectrum;
 import rt.Material.ShadingSample;
 
-public class Schachbrett implements Material{
+public class Fraktal implements Material{
 
 Spectrum kd;
 	
@@ -19,7 +19,7 @@ Spectrum kd;
 	 * 
 	 * @param kd the diffuse reflectance
 	 */
-	public Schachbrett(Spectrum kd)
+	public Fraktal(Spectrum kd)
 	{
 		this.kd = new Spectrum(kd);
 		// Normalize
@@ -29,7 +29,7 @@ Spectrum kd;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public Schachbrett()
+	public Fraktal()
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
 	}
@@ -43,47 +43,23 @@ Spectrum kd;
 	 */
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
 		
-		/*boolean isPositive = hitRecord.position.x>0;
-		boolean condition = false;
-		if(isPositive)
-			condition = 10*hitRecord.position.x%2 < 1;
-		else
-			condition = Math.abs(10*hitRecord.position.x%2) >= 1;*/
-		
-		float restx= 10*hitRecord.position.x % 2;
-		if(restx<0)
-			restx+=2;
-		
-		float resty= 10*hitRecord.position.y % 2;
-		if(resty<0)
-			resty+=2;
-		
-		float restz= 10*hitRecord.position.z % 2;
-		if(restz<0)
-			restz+=2;
-		
-		restx= (int)restx;
-		resty= (int)resty;
-		
-		
-		//Schachbrett
-		if((restx+resty)%2==0)
-			return new Spectrum(1,0,0);
-		return new Spectrum(0,0,0);
-		
-		
-		// 6 gestreift
-		/*switch((int)restx){
-		case 0: return new Spectrum(0.6f, 0.2f, 0.8f);
-		case 1: return new Spectrum(0,0,1);
-		case 2: return new Spectrum(0,1,0);
-		case 3: return new Spectrum(1,1,0);
-		case 4: return new Spectrum(1,0.6f,0);
-		case 5: return new Spectrum(1,0,0);
-		default: return new Spectrum(1,1,1);
-		}*/
-		
-		//return new Spectrum(kd);
+	    float zx = (float) (3.0 * (hitRecord.position.x - 0.5));
+	    float zy = (float) (2.0 * (hitRecord.position.y - 0.5));
+	    float cx=3;
+	    float cy=2;
+	    
+	    int i;
+	    int iter = 100;
+	    for(i=0; i<iter; i++) {
+	        float x = (zx * zx - zy * zy) + cx;
+	        float y = (zy * zx + zx * zy) + cy;
+
+	        if((x * x + y * y) > 4.0) break;
+	        zx = x;
+	        zy = y;
+	    }
+
+	    return new Spectrum((float)i/(float)iter, 1, 1);
 	}
 
 	public boolean hasSpecularReflection()

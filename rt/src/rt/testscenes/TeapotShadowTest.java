@@ -31,13 +31,16 @@ public class TeapotShadowTest extends Scene {
 	 */
 	public TeapotShadowTest()
 	{	
-		outputFilename = new String("../output/testscenes/teapotShadow");
+		outputFilename = new String("../output/testscenes/teapotShadow2");
 		
 		// Specify integrator to be used
 		integratorFactory = new PointLightIntegratorFactory();
 		
 		// Specify pixel sampler to be used
-		samplerFactory = new OneSamplerFactory();
+	//	samplerFactory = new OneSamplerFactory();
+		samplerFactory = new RandomSamplerFactory();
+		
+		SPP = 16;
 		
 		// Make camera and film
 		Vector3f eye = new Vector3f(0.f,0.f,2.f);

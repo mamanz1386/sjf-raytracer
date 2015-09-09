@@ -77,8 +77,8 @@ public class Gitterstruktur implements Material{
 			}
 			
 			if(resta%5==0 || restb%5==0)
-				return new Spectrum(1,1,1);
-			return new Spectrum (0,0,0);
+				return new Spectrum(0,0,1);
+			return new Spectrum (1,1,1);
 			
 			//Schachbrett
 			/*if((restx+resty)%2==0)
