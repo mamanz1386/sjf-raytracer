@@ -29,7 +29,7 @@ public class Refractive implements Material{
 
 	@Override
 	public boolean hasSpecularReflection() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class Refractive implements Material{
 
 	@Override
 	public boolean hasSpecularRefraction() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class Refractive implements Material{
 			n2=Main.scene.getStartN();
 			n1=hR.material.getRefractionIndex();
 		}
-		Vector3f lot=hR.normal;
+		Vector3f lot=new Vector3f(hR.normal);
 		if(!entering)lot.negate();
 		float a1=(float)Math.acos(hR.w.dot(lot));
 		float a2=(float)(n1*Math.sin(a1)/n2);

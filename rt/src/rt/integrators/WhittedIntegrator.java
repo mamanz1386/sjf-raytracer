@@ -31,7 +31,7 @@ public class WhittedIntegrator implements Integrator{
 	@Override
 	public Spectrum integrate(Ray r) {
 		
-		return followRay(r, null, 15);
+		return followRay(r, null, 100);
 		
 	}
 	
@@ -70,25 +70,18 @@ public class WhittedIntegrator implements Integrator{
 			}else if(hit.material.hasSpecularReflection()){
 				ShadingSample reflectionSample=hit.material.evaluateSpecularReflection(hit);
 				Point3f hitEps=new Point3f(StaticVecmath.add(StaticVecmath.scale(reflectionSample.w,0.001F),hit.position));
-				//HitRecord h=root.intersect(r);
-				//System.out.println(hitEps+":"+reflectionSample.w+":"+h.intersectable.getClass());
-				Spectrum flw=followRay(new Ray(hitEps,reflectionSample.w),hit,--remaining);
-				if(flw.equals(new Spectrum(0.0F, 1.0F, 0.0F))){
-					HitRecord h=root.intersect(r);
-					//System.out.println(hitEps+":"+reflectionSample.w+":"+h.intersectable.getClass()+":"+h.t+":"+remaining);
-				}
-				return flw;
+				return followRay(new Ray(hitEps,reflectionSample.w),hit,--remaining);
 				
 			}else if(hit.material.hasSpecularRefraction()){
 				ShadingSample refractionSample=hit.material.evaluateSpecularRefraction(hit);
 				Point3f hitEps=new Point3f(StaticVecmath.add(StaticVecmath.scale(refractionSample.w,0.001F),hit.position));
-				return followRay(new Ray(new Vector3f(hitEps),refractionSample.w),hit,--remaining);
+				return followRay(new Ray(hitEps,refractionSample.w),hit,--remaining);
 				
 			}else{
 				return getSpectrumForHitRecord(hit);
 			}
 		}else{
-			return new Spectrum(0,1,0);
+			return new Spectrum(0,1,1);
 		}
  		
 	}

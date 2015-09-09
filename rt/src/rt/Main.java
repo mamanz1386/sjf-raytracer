@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutionException;
 
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
-import rt.testscenes.CameraTestScene;
 import rt.testscenes.RefractiveSphere;
 
 /**
@@ -20,7 +19,7 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new CameraTestScene();
+	public static Scene scene = new RefractiveSphere();
 	
 	public static int c=0,i=0,g=0;
 	

@@ -10,11 +10,13 @@ import rt.Scene;
 import rt.Spectrum;
 import rt.cameras.MovableCamera;
 import rt.films.BoxFilterFilm;
+import rt.integrators.PointLightIntegratorFactory;
 import rt.integrators.WhittedIntegratorFactory;
 import rt.intersectables.IntersectableList;
 import rt.intersectables.Plane;
 import rt.intersectables.Sphere;
 import rt.lightsources.PointLight;
+import rt.materials.Diffuse;
 import rt.materials.Refractive;
 import rt.materials.Schachbrett;
 import rt.samplers.RandomSamplerFactory;
@@ -38,9 +40,9 @@ public class RefractiveSphere extends Scene {
 		SPP = 32;
 		
 		// Specify which camera, film, and tonemapper to use
-		Vector3f eye = new Vector3f(0.f, 5.f, 2.f);
-		Vector3f lookAt = new Vector3f(0.f, 0.f, 1.f);
-		Vector3f up = new Vector3f(0.f, 0.f, 1.f);
+		Vector3f eye = new Vector3f(0.f, 0.f, 3.f);
+		Vector3f lookAt = new Vector3f(0.f, 0.f, 0.f);
+		Vector3f up = new Vector3f(1.f, 0.f, 0.f);
 		float fov = 60.f;
 		float aspect = 1.f;
 		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
@@ -51,18 +53,17 @@ public class RefractiveSphere extends Scene {
 		integratorFactory = new WhittedIntegratorFactory();
 		samplerFactory = new RandomSamplerFactory();		
 		
-		Material refractive = new Schachbrett();
+		Material chess = new Schachbrett();
 
 		
 		// Ground and back plane
 		// A grid with red and white lines, line thickness 0.01, zero offset shift, and tile size 0.125, all in world coordinates
 		//XYZGrid grid = new XYZGrid(new Spectrum(0.2f, 0.f, 0.f), new Spectrum(1.f, 1.f, 1.f), 0.01f, new Vector3f(0.f, 0.f, 0.f), 0.125f);
-		Plane backPlane = new Plane(new Vector3f(0.f, 0.f, 1f), 0f);
-		//backPlane.material = new Diffuse(new Spectrum(0F,0.3F,1F));
-		backPlane.material = refractive;
+		Plane backPlane = new Plane(new Vector3f(0.f, 0.f, 1f), 1f);
+		backPlane.material = chess;
 		// A sphere for testing
-		Sphere sphere = new Sphere(new Point3f(0F,2F,1.5F),1F);
-		sphere.material = new Refractive(1.3f);
+		Sphere sphere = new Sphere(new Point3f(0F,0F,0F),1F);
+		sphere.material = new Refractive(1.3F);
 		
 		// Collect objects in intersectable list
 		IntersectableList intersectableList = new IntersectableList();
@@ -75,16 +76,9 @@ public class RefractiveSphere extends Scene {
 		root = intersectableList;
 		
 		// Light sources
-		Vector3f lightPos = new Vector3f(eye);
-		lightPos.add(new Vector3f(5.f, 5.f, 5.f));
-		LightGeometry pointLight1 = new PointLight(new Vector3f(0,0,3F), new Spectrum(100.f, 100.f, 100.f));
-		//lightPos.add(new Vector3f(2.f, 0.f, 0.f));
-		LightGeometry pointLight2 = new PointLight(lightPos, new Spectrum(14.f, 14.f, 14.f));
-		LightGeometry pointLight3 = new PointLight(new Vector3f(0.f, 7.f, 0.f), new Spectrum(14.f, 14.f, 14.f));
+		LightGeometry pointLight1 = new PointLight(new Vector3f(-1,0,3), new Spectrum(1000.f, 1000.f, 1000.f));
 		lightList = new LightList();
 		lightList.add(pointLight1);
-		//lightList.add(pointLight2);
-		//lightList.add(pointLight3);
 	}
 	
 }

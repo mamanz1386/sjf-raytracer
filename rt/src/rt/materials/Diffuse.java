@@ -85,7 +85,6 @@ public class Diffuse implements Material {
 
 	@Override
 	public float getRefractionIndex() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
