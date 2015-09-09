@@ -40,7 +40,7 @@ public class TeapotShadowTest extends Scene {
 	//	samplerFactory = new OneSamplerFactory();
 		samplerFactory = new UniformSamplerFactory();
 		
-		SPP = 16;
+		SPP = 32;
 		
 		// Make camera and film
 		Vector3f eye = new Vector3f(0.f,0.f,2.f);
