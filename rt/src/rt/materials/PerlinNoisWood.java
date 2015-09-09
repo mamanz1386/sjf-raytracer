@@ -43,11 +43,11 @@ Spectrum kd;
 	 */
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
 		Spectrum color = new Spectrum();
-		float noiseHeight = 3f;
-		float noiseWidth = 4f;
+		float noiseHeight = 400;
+		float noiseWidth = 600;
 		   
-	    float xyPeriod = 12.0f; //number of rings
-	    float turbPower = 0.2f; //makes twists
+	    float xyPeriod = 30.0f; //number of rings
+	    float turbPower = 0.5f; //makes twists
 	    float turbSize = 32.0f; //initial size of the turbulence
 	     
 	    float x= hitRecord.position.x;
@@ -57,11 +57,11 @@ Spectrum kd;
 	    float yValue = (y - noiseWidth / 2) / (float)(noiseWidth);
 	    float distValue = (float) (Math.sqrt(xValue * xValue + yValue * yValue) + turbPower * turbulence(x, y, turbSize) / 256.0);
 	    float sineValue = (float) (128.0 * Math.abs(Math.sin(2 * xyPeriod * distValue * 3.14159)));
-	    color.r = (int)(80 + sineValue);
-	    color.g = (int)(30 + sineValue);
-	    color.b = 30;
+	    color.r = Math.max(80 + sineValue, 100)/100;
+	    color.g = Math.max(30 + sineValue, 100)/100;
+	    color.b = 30/100;
 
-	    return new Spectrum(color.r/10, color.g/10, color.b/10);
+	    return new Spectrum(color.r, color.g, color.b);
 	}
 	
 	public float turbulence(float x, float y, float turbSize){

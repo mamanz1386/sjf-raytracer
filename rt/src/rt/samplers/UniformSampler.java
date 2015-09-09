@@ -10,8 +10,8 @@ public class UniformSampler implements Sampler {
 		float samples[][] = new float[n][d];
 		int nsqrt = (int) Math.sqrt(n);
 		for(int i=0; i<n; i++){
-			samples[i][1]= (i/nsqrt+1)/(2*nsqrt);
-			samples[i][0]= (i%nsqrt+1)/(2*nsqrt);
+			samples[i][1]= (float)(i/nsqrt+0.5)/nsqrt;
+			samples[i][0]= (float)(i%nsqrt+0.5)/nsqrt;
 		}
 		return samples;
 	}
