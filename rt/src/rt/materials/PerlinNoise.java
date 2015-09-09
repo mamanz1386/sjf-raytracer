@@ -200,7 +200,6 @@ private PerlinNoiseGenerator generator;
 
 	public ShadingSample getEmissionSample(HitRecord hitRecord, float[] sample) {
 		return new ShadingSample();
->>>>>>> branch 'master' of https://github.com/sjf2015/sjf-raytracer
 	}
 	
 }
