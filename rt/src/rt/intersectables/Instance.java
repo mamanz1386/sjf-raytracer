@@ -62,20 +62,13 @@ public class Instance implements Intersectable {
 
 
 	@Override
-	public AxisAlignedBox getBoundingBox() {
-
-		t.transform(intersectable.getBoundingBox().min);
-		t.transform(intersectable.getBoundingBox().max);
-		
-		//return intersectable.getBoundingBox();
-
+	public AxisAlignedBox getBoundingBox() {		
 		AxisAlignedBox bb = intersectable.getBoundingBox();
 		Point3f instanceMin = new Point3f(bb.min);
 		Point3f instanceMax = new Point3f(bb.max);
 		
 		t.transform(instanceMin);
 		t.transform(instanceMax);
-		
 		return new AxisAlignedBox(instanceMin, instanceMax);
 
 	}
