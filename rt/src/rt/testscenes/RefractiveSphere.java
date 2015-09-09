@@ -54,7 +54,8 @@ public class RefractiveSphere extends Scene {
 		
 		// A sphere for testing
 		Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
-		sphere.material = refractive;
+		//sphere.material = refractive;
+		sphere.material = new Diffuse(new Spectrum(1, 1, 1));
 		
 		// Collect objects in intersectable list
 		IntersectableList intersectableList = new IntersectableList();
