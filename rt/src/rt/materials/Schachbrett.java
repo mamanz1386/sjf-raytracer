@@ -7,7 +7,7 @@ import rt.Material;
 import rt.Spectrum;
 import rt.Material.ShadingSample;
 
-public class ProceduraleDiffuse implements Material{
+public class Schachbrett implements Material{
 
 Spectrum kd;
 	
@@ -19,7 +19,7 @@ Spectrum kd;
 	 * 
 	 * @param kd the diffuse reflectance
 	 */
-	public ProceduraleDiffuse(Spectrum kd)
+	public Schachbrett(Spectrum kd)
 	{
 		this.kd = new Spectrum(kd);
 		// Normalize
@@ -29,7 +29,7 @@ Spectrum kd;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public ProceduraleDiffuse()
+	public Schachbrett()
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
 	}
@@ -50,18 +50,20 @@ Spectrum kd;
 		else
 			condition = Math.abs(10*hitRecord.position.x%2) >= 1;*/
 		
-		float restx= 10*hitRecord.position.x % 5;
+		float restx= 10*hitRecord.position.x % 2;
 		if(restx<0)
-			restx+=5;
+			restx+=2;
 		
-		float resty= 10*hitRecord.position.y % 5;
+		float resty= 10*hitRecord.position.y % 2;
 		if(resty<0)
-			resty+=5;
+			resty+=2;
 		
-		float restz= 10*hitRecord.position.z % 5;
+		float restz= 10*hitRecord.position.z % 2;
 		if(restz<0)
-			restz+=5;
+			restz+=2;
 		
+		restx= (int)restx;
+		resty= (int)resty;
 		
 		
 		//Schachbrett
@@ -121,5 +123,4 @@ Spectrum kd;
 	public ShadingSample getEmissionSample(HitRecord hitRecord, float[] sample) {
 		return new ShadingSample();
 	}
-	
 }

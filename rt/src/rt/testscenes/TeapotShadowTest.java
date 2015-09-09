@@ -56,23 +56,23 @@ public class TeapotShadowTest extends Scene {
 				
 		// Box
 		Plane plane = new Plane(new Vector3f(0.f, 1.f, 0.f), 1.f);
-		plane.material = new ProceduraleDiffuse(3);
+		plane.material = new Gitterstruktur(1);
 		objects.add(plane);		
 		
 		plane = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		plane.material = new ProceduraleDiffuse(3);
+		plane.material = new Gitterstruktur(0);
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(-1.f, 0.f, 0.f), 1.f);
-		plane.material = new ProceduraleDiffuse(3);
+		plane.material = new Gitterstruktur(2);
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(1.f, 0.f, 0.f), 1.f);
-		plane.material = new ProceduraleDiffuse(3);
+		plane.material = new Gitterstruktur(2);
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(0.f, -1.f, 0.f), 1.f);
-		plane.material = new ProceduraleDiffuse(3);
+		plane.material = new Gitterstruktur(1);
 		objects.add(plane);
 		
 		// Add objects
@@ -83,7 +83,7 @@ public class TeapotShadowTest extends Scene {
 		{
 			
 			mesh = ObjReader.read("../obj/teapot.obj", 1.f);
-			mesh.material = new Diffuse();
+			mesh.material = new Schachbrett();
 			
 			timer.reset();
 			accelerator = new BSPAccelerator(mesh);
