@@ -59,11 +59,11 @@ public class PointLightIntegrator implements Integrator {
 			n.normalize();
 			
 			
-			double theta = n.dot(lightVec);
+			double theta = Math.max(0.f, n.dot(lightVec));
 			lightColor.mult(diffuse);
 			lightColor.mult((float)theta);
 			
-			lightColor.mult((float) (1f/lightLenght));;
+			lightColor.mult((float) (1f/lightLenght));
 			
 			return lightColor;
 			

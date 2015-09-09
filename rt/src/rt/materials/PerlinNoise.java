@@ -45,10 +45,34 @@ private PerlinNoiseGenerator generator;
 	 *  @param hitRecord hit record to be used
 	 */
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut, Vector3f wIn) {
+
+		// float perNoise = 10*generator.noise3((float) hitRecord.position.x , (float) hitRecord.position.y, (float) hitRecord.position.z);
+		// perNoise += 5*generator.noise3((float) 80*hitRecord.position.x , (float) 70*hitRecord.position.y, (float) 60*hitRecord.position.z);
+		// perNoise += 2*generator.noise3((float) 70*hitRecord.position.x , (float) 90*hitRecord.position.y, (float) 30*hitRecord.position.z);
 		
-		generator.noise3((float) hitRecord.position.x , (float) hitRecord.position.y, (float) hitRecord.position.z);
+		// float perNoise = generator.noise3((float) hitRecord.position.x , (float) hitRecord.position.y, (float) hitRecord.position.z);
 		
-		return generator.noise3;
+		float perNoise = 0;
+        
+		float a = 2; // The parameter "a" controls how rough the final noise will be
+        float b = 2; // A harmonic will be Noise(b x) where "b" is some positive number greater than 1, most commonly it will be powers of 2
+        float n = 8; // n is typically between 6 and 10
+		
+		for(int i = 0; i < n; i++) {
+	        
+	      perNoise += 8*(generator.noise3((float) Math.pow(b,i)*hitRecord.position.x , (float) Math.pow(b,i)*hitRecord.position.y, (float) Math.pow(b,i)*hitRecord.position.z))/Math.pow(a,i);
+	     
+		}
+
+		// a*perNoise + b*(1-perNoise)
+		Spectrum blue = new Spectrum(0,0,1);
+		Spectrum white = new Spectrum(1,1,1);
+		white.mult(perNoise);
+		blue.mult(1-perNoise);
+		white.add(blue);
+		return white;
+		
+		//return new Spectrum(perNoise,perNoise,perNoise);
 	}
 
 	public boolean hasSpecularReflection()
