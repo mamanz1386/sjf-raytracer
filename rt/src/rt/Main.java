@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
+import rt.testscenes.InstancingShuttle;
 import rt.testscenes.InstancingTeapots;
 import rt.testscenes.Plane2D;
 import rt.testscenes.RefractiveSphere;
@@ -22,7 +23,7 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new Plane2D();
+	public static Scene scene = new InstancingShuttle();
 
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException

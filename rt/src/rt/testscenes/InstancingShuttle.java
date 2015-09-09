@@ -38,15 +38,15 @@ public class InstancingShuttle extends Scene {
 		// Specify pixel sampler to be used
 		//samplerFactory = new OneSamplerFactory();
 		samplerFactory = new RandomSamplerFactory();
-		SPP = 1;
+		SPP = 32;
 		
 		// Make camera and film
 		Vector3f eye = new Vector3f(0.f,0.f,5.f);
 		Vector3f lookAt = new Vector3f(0.f,0.f,0.f);
 		Vector3f up = new Vector3f(0.f,1.f,0.f);
 		float fov = 60.f;
-		int width = 1280;
-		int height = 720;
+		int width = 1280*2;
+		int height = 720*2;
 		float aspect = (float)width/(float)height;
 		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);						
@@ -61,7 +61,7 @@ public class InstancingShuttle extends Scene {
 			BSPAccelerator accelerator;
 			Matrix4f translation = new Matrix4f();
 			translation.setIdentity();
-			translation.setTranslation(new Vector3f(0, 0, 0.5f)); //m23 = (float) 3.5;
+			translation.setTranslation(new Vector3f(0, 0, 3.5f)); //m23 = (float) 3.5;
 			try
 				{
 					
@@ -92,10 +92,10 @@ public class InstancingShuttle extends Scene {
 		// List of lights
 		lightList = new LightList();
 		
-		LightGeometry light = new PointLight(new Vector3f(0.f,4f,0.8f), new Spectrum(3.f, 3.f, 3.f));
+		LightGeometry light = new PointLight(new Vector3f(0.f,4f,0.8f), new Spectrum(10.f, 10.f, 10.f));
 		lightList.add(light);
 		
-		light = new PointLight(new Vector3f(-0.8f,0.2f,1.f), new Spectrum(1f, 1f, 1f));
+		light = new PointLight(new Vector3f(-0.8f,0.2f,5.f), new Spectrum(1f, 1f, 1f));
 		lightList.add(light);		
 	}
 }
