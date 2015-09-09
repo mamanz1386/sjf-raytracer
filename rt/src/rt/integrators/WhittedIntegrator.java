@@ -118,12 +118,12 @@ public class WhittedIntegrator implements Integrator{
 			//if(shadow!=null&&shadow.intersectable instanceof Sphere)System.out.println(!shadow.material.castsShadows());
 			//if(shadow!=null)System.out.println(StaticVecmath.sub(shadow.position,hitEpsilon).lengthSquared()+":"+lightLenght);
 			
-			if(shadow!=null){
-				//System.out.println(shadow.intersectable.getClass());
+			/*if(shadow!=null){
+				System.out.println(shadow.intersectable.getClass());
 				return new Spectrum((shadow.position.x+1)/2, (shadow.position.y+1)/2, (shadow.position.z+1)/2);
 			}
-			else return new Spectrum();
-			/*if(shadow==null||(StaticVecmath.sub(shadow.position,hitEpsilon).lengthSquared()>lightLenght-0.0001F||shadow.t<0)||!shadow.material.castsShadows()||false){
+			else return new Spectrum();*/
+			if(shadow==null||(StaticVecmath.sub(shadow.position,hitEpsilon).lengthSquared()>lightLenght-0.0001F||shadow.t<0)||!shadow.material.castsShadows()||false){
 				Spectrum lightColor=lightHit.material.evaluateEmission(lightHit, lightVec);
 				n.normalize();
 
@@ -138,7 +138,7 @@ public class WhittedIntegrator implements Integrator{
 			}else {
 				//System.out.println(lightVec.dot(StaticVecmath.negate(shadow.w)));
 				//System.out.println(shadow.intersectable.getClass()+":"+shadow.material.getClass()+":"+shadow.t);
-			}*/
+			}
 		}
 		
 		return rLC;

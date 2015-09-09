@@ -60,7 +60,7 @@ public class Sphere implements Intersectable {
 		Point3f isec=r.pointAt(t);
 		Vector3f norm=StaticVecmath.sub(isec, center);
 		norm.normalize();
-		Vector3f back=r.direction;
+		Vector3f back=new Vector3f(r.direction);
 		back.negate();
 		back.normalize();
 		return new HitRecord(t, isec, norm, back, this, material, 0F, 0F);
