@@ -64,6 +64,7 @@ public class Mesh extends Aggregate {
 		this.vertices = vertices;
 		this.normals = normals;
 		this.indices = indices;
+		this.texCoords = texCoordsFinal;
 		triangles = new MeshTriangle[indices.length/3];		
 		
 		// A triangle simply stores a triangle index and refers back to the mesh 
