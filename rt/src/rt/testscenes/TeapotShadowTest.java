@@ -86,7 +86,7 @@ public class TeapotShadowTest extends Scene {
 		{
 			
 			mesh = ObjReader.read("../obj/sphere.obj", 1.f);
-			mesh.material = new Textured("../textures/textureKontrolle.jpg");
+			mesh.material = new Textured("../textures/sphere.bmp");
 			
 			timer.reset();
 			accelerator = new BSPAccelerator(mesh);

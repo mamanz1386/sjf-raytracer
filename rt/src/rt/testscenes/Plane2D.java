@@ -31,7 +31,7 @@ public class Plane2D extends Scene{
 	public Plane2D()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/TextureTest");
+		outputFilename = new String("../output/testscenes/MeshTextureTest");
 		// Image width and height in pixels
 		width = 1280;
 		height = 720;
@@ -65,6 +65,7 @@ public class Plane2D extends Scene{
 		Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
 		//sphere.material = refractive;
 		sphere.material = new Textured("C:/Users/Bibin/Desktop/Weltkarte.jpg");
+		
 		
 		
 		// Some planes are left out

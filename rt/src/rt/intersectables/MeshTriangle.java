@@ -135,12 +135,12 @@ public class MeshTriangle implements Intersectable {
 			texture_u =0;
 			texture_v =0;
 		}else{
-			float ua = mesh.texCoords[v0];
-			float va = mesh.texCoords[v0+1];
-			float ub = mesh.texCoords[v1];
-			float vb = mesh.texCoords[v1+1];
-			float uc = mesh.texCoords[v2];
-			float vc = mesh.texCoords[v2+1];
+			float ua = mesh.texCoords[v0*2];
+			float va = mesh.texCoords[v0*2+1];
+			float ub = mesh.texCoords[v1*2];
+			float vb = mesh.texCoords[v1*2+1];
+			float uc = mesh.texCoords[v2*2];
+			float vc = mesh.texCoords[v2*2+1];
 			
 			texture_u = a*ua + u*ub + v*uc;
 			texture_v = a*va + u*vb + v*vc;

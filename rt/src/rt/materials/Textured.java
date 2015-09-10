@@ -25,6 +25,7 @@ public class Textured implements Material {
 	public Textured(String textureFileName) {
 		try {
 			texture = ImageIO.read(new File(textureFileName));
+			System.out.println("h: "+texture.getHeight()+"     w: "+texture.getWidth());
 		} catch (IOException e) {
 			System.err.println("Could not load texture: ");
 			e.printStackTrace();
@@ -36,6 +37,8 @@ public class Textured implements Material {
 		int texture_x = (int) Math.max(Math.min((texture.getWidth() * hitRecord.v), texture.getWidth()-1),0);
 		int texture_y = (int) Math.max(Math.min((texture.getHeight() * hitRecord.u), texture.getHeight()-1),0);
 		
+		if(texture.getWidth() * hitRecord.v < 0 || texture.getHeight() * hitRecord.u < 0|| texture.getWidth() * hitRecord.v > texture.getWidth()|| texture.getHeight() * hitRecord.u > texture.getHeight())
+			System.out.println("v: "+ texture.getWidth() * hitRecord.v+ "     u: "+ texture.getHeight() * hitRecord.u);
 		
 		int rgb = texture.getRGB(texture_x, texture_y);
 		Color color = new Color(rgb);
