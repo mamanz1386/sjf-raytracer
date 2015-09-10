@@ -35,7 +35,7 @@ public class RefractiveSphereOriginal extends Scene {
 		Vector3f up = new Vector3f(0.f, 1.f, 0.f);
 		float fov = 60.f;
 		float aspect = 1.f;
-		camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);
 		tonemapper = new ClampTonemapper();
 		
@@ -48,9 +48,14 @@ public class RefractiveSphereOriginal extends Scene {
 		
 		// Ground and back plane
 		// A grid with red and white lines, line thickness 0.01, zero offset shift, and tile size 0.125, all in world coordinates
-		XYZGrid grid = new XYZGrid(new Spectrum(0.2f, 0.f, 0.f), new Spectrum(1.f, 1.f, 1.f), 0.01f, new Vector3f(0.f, 0.f, 0.f), 0.125f);
-		Plane backPlane = new Plane(new Vector3f(0.f, 0.f, 1.f), 2.15f);
-		backPlane.material = grid;
+		
+		//new Spectrum(0.2f, 0.f, 0.f), new Spectrum(1.f, 1.f, 1.f), 0.01f, new Vector3f(0.f, 0.f, 0.f), 0.125f
+		Plane backPlane = new Plane(new Vector3f(0.f, 0.f, 1.f), 0f);//new Vector3f(0.f, 0.f, 1.f), 2.15f
+		backPlane.material = new Gitterstruktur(new Spectrum(0.2F,0,0),new Spectrum(1, 1, 1),0.01F,0.125F);
+		Matrix4f t = new Matrix4f();
+		t.setIdentity();
+		t.setTranslation(new Vector3f(0.f, 0f, -2.15f));
+		Instance grid=new Instance(backPlane, t);
 		
 		// A sphere for testing
 		Sphere sphere = new Sphere();
@@ -61,7 +66,7 @@ public class RefractiveSphereOriginal extends Scene {
 
 		
 		intersectableList.add(sphere);
-		intersectableList.add(backPlane);
+		intersectableList.add(grid);
 		
 		// Set the root node for the scene
 		root = intersectableList;

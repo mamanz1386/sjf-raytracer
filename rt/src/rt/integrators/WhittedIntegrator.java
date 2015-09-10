@@ -31,57 +31,72 @@ public class WhittedIntegrator implements Integrator{
 	@Override
 	public Spectrum integrate(Ray r) {
 		
-		return followRay(r, null, 10);
+		return followRay(r, 10);
 		
 	}
 	
-	public Spectrum followRay(Ray r, HitRecord last, int remaining){
-		if(remaining<=0)return new Spectrum(0,0,1);
+	public Spectrum followRay(Ray r, int remaining){
+		if(remaining<=0)return new Spectrum(0,0,0);
 		HitRecord hit = root.intersect(r);
-		//if(remaining<15)System.out.println(hit.intersectable.getClass()+":"+hit.t+":"+remaining);
 		if(hit!=null){
 	 		if(hit.material.hasSpecularReflection()&&hit.material.hasSpecularRefraction()){
-	 			//System.out.println(remaining);
 				float n1;
 				float n2;
-				if(StaticVecmath.negate(hit.w).dot(hit.normal)>=0){
+				boolean entering=false;
+				if(hit.w.dot(hit.normal)>=0){
 					n1=scene.getStartN();
 					n2=hit.material.getRefractionIndex();
+					entering=true;
 				}else{
 					n2=scene.getStartN();
 					n1=hit.material.getRefractionIndex();
 				}
-				float f=(float) (Math.pow((1-n1/n2),2)/Math.pow((1+n1/n2),2));
-				float F=f+(1-f)*(1-hit.w.dot(hit.normal));
+				Vector3f lot=new Vector3f(hit.normal);
+				if(!entering)lot.negate();
+				float a1=(float) Math.acos(hit.w.dot(lot));
+				float f,F;
+				if(Math.sin(a1)*(n1/n2)>1){
+					F=1;
+				}else{
+					f=(float) (Math.pow((1-n1/n2),2)/Math.pow((1+n1/n2),2));
+					F=(float) (f+(1-f)*Math.pow((1-hit.w.dot(lot)),5F));
+				}
 				
 				//Reflection
-				ShadingSample reflectionSample=hit.material.evaluateSpecularReflection(hit);
-				Point3f hitEpsRefl=new Point3f(StaticVecmath.add(StaticVecmath.scale(reflectionSample.w,0.001F),hit.position));
-				Spectrum reflSpectrum=followRay(new Ray(new Vector3f(hitEpsRefl),hit.material.evaluateSpecularReflection(hit).w),hit,--remaining);
-				reflSpectrum.mult(F);
+				Spectrum reflSpectrum=new Spectrum();
+				if(F>0){
+					ShadingSample reflectionSample=hit.material.evaluateSpecularReflection(hit);
+					Point3f hitEpsRefl=new Point3f(StaticVecmath.add(StaticVecmath.scale(reflectionSample.w,0.001F),hit.position));
+					reflSpectrum=followRay(new Ray(new Vector3f(hitEpsRefl),hit.material.evaluateSpecularReflection(hit).w),--remaining);
+					reflSpectrum.mult(F);
+				}
+				
 				//Refraction
-				ShadingSample refractionSample=hit.material.evaluateSpecularRefraction(hit);
-				Point3f hitEpsRefr=new Point3f(StaticVecmath.add(StaticVecmath.scale(refractionSample.w,0.001F),hit.position));
-				Spectrum refrSpectrum=followRay(new Ray(new Vector3f(hitEpsRefr),hit.material.evaluateSpecularRefraction(hit).w),hit,--remaining);
-				refrSpectrum.mult(1-F);
+				Spectrum refrSpectrum=new Spectrum();
+				if(F<1){
+					ShadingSample refractionSample=hit.material.evaluateSpecularRefraction(hit);
+					Point3f hitEpsRefr=new Point3f(StaticVecmath.add(StaticVecmath.scale(refractionSample.w,0.001F),hit.position));
+					refrSpectrum=followRay(new Ray(hitEpsRefr,refractionSample.w),--remaining);
+					refrSpectrum.mult(1-F);
+				}
 				reflSpectrum.add(refrSpectrum);
 				return reflSpectrum;
 				
 			}else if(hit.material.hasSpecularReflection()){
 				ShadingSample reflectionSample=hit.material.evaluateSpecularReflection(hit);
 				Point3f hitEps=new Point3f(StaticVecmath.add(StaticVecmath.scale(reflectionSample.w,0.001F),hit.position));
-				return followRay(new Ray(hitEps,reflectionSample.w),hit,--remaining);
+				return followRay(new Ray(hitEps,reflectionSample.w),--remaining);
 				
 			}else if(hit.material.hasSpecularRefraction()){
 				ShadingSample refractionSample=hit.material.evaluateSpecularRefraction(hit);
 				Point3f hitEps=new Point3f(StaticVecmath.add(StaticVecmath.scale(refractionSample.w,0.001F),hit.position));
-				return followRay(new Ray(hitEps,refractionSample.w),hit,--remaining);
+				return followRay(new Ray(hitEps,refractionSample.w),--remaining);
 				
 			}else{
 				return getSpectrumForHitRecord(hit);
 			}
 		}else{
-			return new Spectrum(0,1,1);
+			return scene.getSkyColor();
 		}
  		
 	}
@@ -107,15 +122,7 @@ public class WhittedIntegrator implements Integrator{
 			
 			Ray lightRay=new Ray(new Vector3f(hitEpsilon),lightVec);
 			HitRecord shadow=root.intersect(lightRay);
-			//if(shadow!=null)System.out.println(hitEpsilon+":"+shadow.position);
-			//if(shadow!=null&&shadow.intersectable instanceof Sphere)System.out.println(!shadow.material.castsShadows());
-			//if(shadow!=null)System.out.println(StaticVecmath.sub(shadow.position,hitEpsilon).lengthSquared()+":"+lightLenght);
 			
-			/*if(shadow!=null){
-				System.out.println(shadow.intersectable.getClass());
-				return new Spectrum((shadow.position.x+1)/2, (shadow.position.y+1)/2, (shadow.position.z+1)/2);
-			}
-			else return new Spectrum();*/
 			if(shadow==null||(StaticVecmath.sub(shadow.position,hitEpsilon).lengthSquared()>lightLenght-0.0001F||shadow.t<0)||!shadow.material.castsShadows()||false){
 				Spectrum lightColor=lightHit.material.evaluateEmission(lightHit, lightVec);
 				n.normalize();
@@ -128,10 +135,7 @@ public class WhittedIntegrator implements Integrator{
 
 				lightColor.mult((float) (1f/lightLenght));
 				rLC.add(lightColor);
-			}else {
-				//System.out.println(lightVec.dot(StaticVecmath.negate(shadow.w)));
-				//System.out.println(shadow.intersectable.getClass()+":"+shadow.material.getClass()+":"+shadow.t);
-			}
+			}else {}
 		}
 		
 		return rLC;

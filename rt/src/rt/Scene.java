@@ -7,6 +7,7 @@ public abstract class Scene {
 
 	public String outputFilename;
 	protected float startN=1;
+	protected Spectrum skyColor=new Spectrum();
 	protected int SPP;
 	protected int width;
 	protected int height;
@@ -33,6 +34,10 @@ public abstract class Scene {
 	
 	public float getStartN() {
 		return startN;
+	}
+	
+	public Spectrum getSkyColor(){
+		return skyColor;
 	}
 	
 	public Camera getCamera() {

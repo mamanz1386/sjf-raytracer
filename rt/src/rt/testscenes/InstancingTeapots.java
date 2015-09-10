@@ -1,22 +1,26 @@
 package rt.testscenes;
 
-import java.io.File;
 import java.io.IOException;
-
-import rt.*;
-import rt.cameras.*;
-import rt.films.*;
-import rt.integrators.*;
-import rt.intersectables.*;
-import rt.lightsources.*;
-import rt.samplers.*;
-import rt.tonemappers.*;
-import rt.materials.*;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
-import org.omg.CORBA.TRANSACTION_MODE;
+import rt.LightGeometry;
+import rt.LightList;
+import rt.ObjReader;
+import rt.Scene;
+import rt.Spectrum;
+import rt.cameras.MovableCamera;
+import rt.films.BoxFilterFilm;
+import rt.integrators.PointLightIntegratorFactory;
+import rt.intersectables.Instance;
+import rt.intersectables.IntersectableList;
+import rt.intersectables.Mesh;
+import rt.intersectables.Plane;
+import rt.lightsources.PointLight;
+import rt.materials.Diffuse;
+import rt.samplers.OneSamplerFactory;
+import rt.tonemappers.ClampTonemapper;
 
 /**
  * Test scene for instancing and rendering triangle meshes.
