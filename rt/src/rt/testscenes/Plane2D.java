@@ -31,7 +31,7 @@ public class Plane2D extends Scene{
 	public Plane2D()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/Fraktal123123");
+		outputFilename = new String("../output/testscenes/Fusball123123");
 		// Image width and height in pixels
 		width = 1280;
 		height =720;
@@ -40,7 +40,7 @@ public class Plane2D extends Scene{
 		SPP = 1;
 		
 		// Specify which camera, film, and tonemapper to use
-		Vector3f eye = new Vector3f(0.5f, 0.5f, 3.f);
+		Vector3f eye = new Vector3f(0.5f, -0.5f, 3.f);
 		Vector3f lookAt = new Vector3f(0.5f, 0.f, 0.f);
 		Vector3f up = new Vector3f(0.2f, 1.f, 0.f);
 		float fov = 60.f;
@@ -59,13 +59,14 @@ public class Plane2D extends Scene{
 		// Define some objects to be added to the scene. 
 		// 5 planes can be used to define a box (with never ending walls).
 		Plane p1 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		p1.material = new Fraktal(0.4f, 0.37f);
+		p1.material = new Schachbrett();
 		iList.add(p1);
 		
 		
 		Sphere sphere = new Sphere(new Point3f(0F,0.270F,1F),1F);
 		//sphere.material = refractive;
-		sphere.material = new Fraktal(0.3425f, 0.41f);
+		//sphere.material = new Fraktal(0.3425f, 0.41f);
+		sphere.material = new Textured("../textures/fus.png");
 		
 		
 		
