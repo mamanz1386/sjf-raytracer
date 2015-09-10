@@ -9,6 +9,7 @@ import rt.renderers.Renderer;
 import rt.testscenes.InstancingTeapots;
 import rt.testscenes.InstancingTest;
 import rt.testscenes.Plane2D;
+import rt.testscenes.Presentation;
 import rt.testscenes.RefractiveSphere;
 import rt.testscenes.TeapotShadowTest;
 
@@ -23,7 +24,7 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new Plane2D();
+	public static Scene scene = new Presentation();
 
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
