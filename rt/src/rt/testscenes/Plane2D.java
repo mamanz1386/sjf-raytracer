@@ -1,5 +1,6 @@
 package rt.testscenes;
 
+import javax.swing.Box;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -18,6 +19,8 @@ import rt.materials.BlinnPhong;
 import rt.materials.Diffuse;
 import rt.materials.Fraktal;
 import rt.materials.Gitterstruktur;
+import rt.materials.PerlinNoisWood;
+import rt.materials.PerlinNoise;
 import rt.materials.Schachbrett;
 import rt.samplers.OneSamplerFactory;
 import rt.tonemappers.ClampTonemapper;
@@ -50,22 +53,30 @@ public class Plane2D extends Scene{
 		integratorFactory = new PointLightIntegratorFactory();
 		samplerFactory = new OneSamplerFactory();
 		
+		IntersectableList iList = new IntersectableList();
+		
 		// Define some objects to be added to the scene. 
 		// 5 planes can be used to define a box (with never ending walls).
 		Plane p1 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		p1.material = new Schachbrett();
-		
-		IntersectableList iList = new IntersectableList();
-		// Some planes are left out
+		p1.material = new Gitterstruktur(0);
 		iList.add(p1);
+		
+		Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
+		//sphere.material = refractive;
+		sphere.material = new PerlinNoisWood();
+		
+		
+		// Some planes are left out
+		
+		iList.add(sphere);
 		
 		this.root = iList;
 		
 		// Light sources
-		LightGeometry l1 = new PointLight(new Vector3f(0.f, 0.f, 5.f), new Spectrum(5.f, 5.f, 5.f));
-		LightGeometry l2 = new PointLight(new Vector3f(0.9f, 0.9f, 0f), new Spectrum(1f, 1f, 1f));
+		LightGeometry l1 = new PointLight(new Vector3f(3f, 1.5f, 0.5f), new Spectrum(1f, 1f, 1f));
+		LightGeometry l2 = new PointLight(new Vector3f(0f, 0f, 3f), new Spectrum(1f, 1f, 1f));
 		lightList = new LightList();
-		lightList.add(l1);
 		lightList.add(l2);
+		lightList.add(l1);
 	}
 }

@@ -57,6 +57,7 @@ public class Sphere implements Intersectable {
 			else t=Math.min(t1, t2);
 		}
 		
+		
 		Point3f isec=r.pointAt(t);
 		Vector3f norm=StaticVecmath.sub(isec, center);
 		norm.normalize();

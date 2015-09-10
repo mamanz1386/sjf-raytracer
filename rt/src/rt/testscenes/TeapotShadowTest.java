@@ -38,7 +38,7 @@ public class TeapotShadowTest extends Scene {
 		
 		// Specify pixel sampler to be used
 	//	samplerFactory = new OneSamplerFactory();
-		samplerFactory = new RandomSamplerFactory();
+		samplerFactory = new UniformSamplerFactory();
 		
 		SPP = 16;
 		
