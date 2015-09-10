@@ -31,7 +31,7 @@ public class Plane2D extends Scene{
 	public Plane2D()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/Fraktal123");
+		outputFilename = new String("../output/testscenes/Fraktal123123");
 		// Image width and height in pixels
 		width = 1280;
 		height =720;
@@ -59,13 +59,13 @@ public class Plane2D extends Scene{
 		// Define some objects to be added to the scene. 
 		// 5 planes can be used to define a box (with never ending walls).
 		Plane p1 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		p1.material = new PerlinNoise();
+		p1.material = new Fraktal(0.4f, 0.37f);
 		iList.add(p1);
 		
 		
 		Sphere sphere = new Sphere(new Point3f(0F,0.270F,1F),1F);
 		//sphere.material = refractive;
-		sphere.material = new Fraktal();
+		sphere.material = new Fraktal(0.3425f, 0.41f);
 		
 		
 		
@@ -79,7 +79,7 @@ public class Plane2D extends Scene{
 		lightList = new LightList();
 		/*LightGeometry l1 = new PointLight(new Vector3f(0f, 0f, 2.01f), new Spectrum(1f, 1f, 1f));
 		lightList.add(l1);*/
-		LightGeometry l2 = new PointLight(new Vector3f(0f, 0f, 10f), new Spectrum(100f, 100f, 100f));
+		LightGeometry l2 = new PointLight(new Vector3f(2f, 0f, 4f), new Spectrum(33f, 33f, 33f));
 		lightList.add(l2);
 		
 		
