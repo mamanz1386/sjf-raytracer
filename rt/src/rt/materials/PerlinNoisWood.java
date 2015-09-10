@@ -51,7 +51,7 @@ private PerlinNoiseGenerator generator;
 		float x = hitRecord.position.x;
 		   
 	    float xyPeriod = 80.0f; //number of rings
-	    float turbPower = 0.3f; //makes twists
+	    float turbPower = 5f; //makes twists
 	    float turbSize = 32.0f; //initial size of the turbulence
 	     
 	    float noiseHeight= 600;
