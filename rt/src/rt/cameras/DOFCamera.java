@@ -114,6 +114,7 @@ public class DOFCamera implements Camera{
 		p.transform(d);
 		
 		if(apertureSize<=0){
+			m.transform(d);
 			return new Ray(eye,StaticVecmath.normalize(StaticVecmath.sub(new Vector3f(d.x,d.y,d.z),eye)));
 		}
 		

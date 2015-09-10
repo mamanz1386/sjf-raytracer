@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutionException;
 
+import rt.renderers.DebuggingRenderer;
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
 import rt.testscenes.InstancingTeapots;
@@ -30,7 +31,7 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
 		scene.prepare();
-		Renderer renderer = new MultiThreadedRenderer(scene);
+		Renderer renderer = new DebuggingRenderer(scene,0,720);
 		renderer.render();
 		renderer.writeImageToFile();
 	}
