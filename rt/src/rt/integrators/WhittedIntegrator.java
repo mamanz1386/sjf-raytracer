@@ -8,7 +8,6 @@ import rt.Integrator;
 import rt.Intersectable;
 import rt.LightGeometry;
 import rt.LightList;
-import rt.Main;
 import rt.Material.ShadingSample;
 import rt.Ray;
 import rt.Sampler;
@@ -30,9 +29,7 @@ public class WhittedIntegrator implements Integrator{
 
 	@Override
 	public Spectrum integrate(Ray r) {
-		
 		return followRay(r, 10);
-		
 	}
 	
 	public Spectrum followRay(Ray r, int remaining){

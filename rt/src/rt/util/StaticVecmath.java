@@ -11,6 +11,13 @@ public class StaticVecmath {
 		return tmp.lengthSquared();
 	}
 	
+	public static Vector3f normalize(Tuple3f v1)
+	{
+		Vector3f tmp = new Vector3f(v1);
+		tmp.normalize();
+		return tmp;
+	}
+	
 	public static float dot(Vector3f v1, Vector3f v2)
 	{
 		Vector3f r = new Vector3f(v1);
