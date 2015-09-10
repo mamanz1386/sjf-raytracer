@@ -16,7 +16,7 @@ public class TriangleTest extends Scene {
 	public TriangleTest()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/TriangleTest123");
+		outputFilename = new String("../output/testscenes/TriangleTestNew");
 		
 		// Image width and height in pixels
 		width = 512;
@@ -46,7 +46,7 @@ public class TriangleTest extends Scene {
 		float[] normals = {0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f};
 		int[] indices = {0, 1, 2};
 		
-		Mesh mesh = new Mesh(vertices, normals, indices);
+		Mesh mesh = new Mesh(vertices, normals, new float[2], indices);
 		
 		IntersectableList intersectableList = new IntersectableList();
 		intersectableList.add(mesh);
