@@ -31,14 +31,14 @@ public class Presentation extends Scene{
 		width = 1280;
 		height = 720;
 		
-		SPP = 10;
+		SPP = 512;
 		
 		Vector3f eye = new Vector3f(0f, 3f, 1.f);
 		Vector3f lookAt = new Vector3f(0f, 2.5f, 0.f);
 		Vector3f up = new Vector3f(0f, 1.f, 0.f);
 		float fov = 60.f;
 		float aspect = 16.f/9.f;
-		camera = new DOFCamera(eye, lookAt, up, fov, aspect, width, height,1,4);
+		camera = new DOFCamera(eye, lookAt, up, fov, aspect, width, height,0.1f,5);
 		film = new BoxFilterFilm(width, height);
 		tonemapper = new ClampTonemapper();
 		
@@ -63,7 +63,7 @@ public class Presentation extends Scene{
 		try{
 			dragon = ObjReader.read("../obj/dragon.obj", 1.f);
 			dragon.material = new BlinnPhong(new Spectrum(1F,0,0.2F),new Spectrum(1, 1, 1),3);
-			dragonAccelerator = new BSPAccelerator(dragon);
+			dragonAccelerator = new BSPAccelerator(dragon, 5);
 		} catch(IOException e){
 			System.out.printf("Could not read .obj file\n");
 			return;
@@ -71,7 +71,8 @@ public class Presentation extends Scene{
 		for(int i=0; i<30; i++){
 			Matrix4f trans=new Matrix4f();
 			trans.setIdentity();
-			trans.setTranslation(new Vector3f(0,1,-i*2));
+			if(i%2==0)trans.setTranslation(new Vector3f(i,1,-i*2));
+			else trans.setTranslation(new Vector3f(-i,1,-i*2));
 			Instance dragonInstance=new Instance(dragonAccelerator, trans);
 			iList.add(dragonInstance); 	
 		}
