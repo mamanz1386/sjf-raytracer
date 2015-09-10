@@ -31,7 +31,7 @@ public class MeshTriangle implements Intersectable {
 		this.index = index;		
 	}
 	
-	/* public HitRecord intersect(Ray r)
+	 public HitRecord intersect(Ray r)
 	{
 		float vertices[] = mesh.vertices;
 		
@@ -105,9 +105,9 @@ public class MeshTriangle implements Intersectable {
 		}
 		
 		return null;
-	} */
+	} 
 
-	public HitRecord intersect(Ray r)
+	/* public HitRecord intersect(Ray r)
 	{
 		float vertices[] = mesh.vertices;
 		
@@ -211,7 +211,7 @@ public class MeshTriangle implements Intersectable {
 		}
 		
 	return null;
-	}
+	} */
 	
 	
 	@Override
