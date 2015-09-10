@@ -68,7 +68,8 @@ public class Gitterstruktur implements Material{
 				condition = Math.abs(10*hitRecord.position.x%2) >= 1;*/
 			
 			float xStep=Math.abs(hitRecord.position.x) % density;
-			float yStep=Math.abs(hitRecord.position.y) % density;
+			float yStep=Math.abs(hitRecord.position.z) % density;
+			//return new Spectrum(xStep, yStep, 0);
 			
 			if((xStep>density-thickness||xStep<thickness)&&(yStep>density-thickness||yStep<thickness))return intersectionColor;
 			if(xStep>density-thickness||xStep<thickness)return gridColor;

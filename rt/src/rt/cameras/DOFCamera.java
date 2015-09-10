@@ -107,10 +107,15 @@ public class DOFCamera implements Camera{
 		// Make point on image plane in viewport coordinates, that is range [0,width-1] x [0,height-1]
 		// The assumption is that pixel [i,j] is the square [i,i+1] x [j,j+1] in viewport coordinates
 		
+		
 		//Vector4f d=new Vector4f((float)i, (float)j, -1F, 1F);
 		Point4f d = new Point4f((float)i+sample[0],(float)j+sample[1],-1.f,1F);
 		
 		p.transform(d);
+		
+		if(apertureSize<=0){
+			return new Ray(eye,StaticVecmath.normalize(StaticVecmath.sub(new Vector3f(d.x,d.y,d.z),eye)));
+		}
 		
 		Point4f origin=new Point4f(0,0,0,1);
 		origin.x+=(sample[0]-0.5)*apertureSize;
