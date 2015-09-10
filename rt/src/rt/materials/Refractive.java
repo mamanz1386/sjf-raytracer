@@ -29,7 +29,7 @@ public class Refractive implements Material{
 
 	@Override
 	public boolean hasSpecularReflection() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -62,12 +62,12 @@ public class Refractive implements Material{
 		}
 		Vector3f lot=new Vector3f(hR.normal);
 		if(!entering)lot.negate();
-		float a1=(float)Math.acos(StaticVecmath.negate(hR.w).dot(lot));
+		float a1=(float)Math.acos(hR.w.dot(lot));
 		float a2=(float)Math.asin((n1*Math.sin(a1)/n2));
 		
 		//System.out.println(a1+":"+a2+":"+n1+":"+n2+":"+entering);
 		
-		Vector3f r=StaticVecmath.add(StaticVecmath.scale(StaticVecmath.negate(hR.w), n1/n2), StaticVecmath.scale(hR.normal, (float) ((n1/n2)*Math.cos(a1)-Math.cos(a2))));
+		Vector3f r=StaticVecmath.add(StaticVecmath.scale(StaticVecmath.negate(hR.w), n1/n2), StaticVecmath.scale(lot, (float) ((n1/n2)*Math.cos(a1)-Math.cos(a2))));
 		
 		return new ShadingSample(new Spectrum(1, 1, 1), new Spectrum(), r, false, 0);
 	}

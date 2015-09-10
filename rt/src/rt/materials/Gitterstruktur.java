@@ -9,7 +9,11 @@ import rt.Material.ShadingSample;
 
 public class Gitterstruktur implements Material{
 
-	Spectrum kd;
+	Spectrum gridColor;
+	Spectrum backColor;
+	Spectrum intersectionColor;
+	float thickness;
+	float density;
 	int i;
 		
 		/**
@@ -20,22 +24,32 @@ public class Gitterstruktur implements Material{
 		 * 
 		 * @param kd the diffuse reflectance
 		 */
-		public Gitterstruktur(Spectrum kd)
+		public Gitterstruktur(Spectrum gridColor, Spectrum backColor, float thickness, float density)
 		{
-			this.kd = new Spectrum(kd);
-			// Normalize
-			this.kd.mult(1/(float)Math.PI);
+			this.gridColor=gridColor;
+			this.backColor=backColor;
+			this.intersectionColor=gridColor;
+			this.thickness=thickness;
+			this.density=density;
+		}
+		
+		public Gitterstruktur(Spectrum gridColor, Spectrum backColor, Spectrum intersectionColor, float thickness, float density)
+		{
+			this.gridColor=gridColor;
+			this.backColor=backColor;
+			this.intersectionColor=intersectionColor;
+			this.thickness=thickness;
+			this.density=density;
 		}
 		
 		/**
 		 * Default diffuse material with reflectance (1,1,1).
 		 * set int to plane direction: z:0, y:1, x:2
 		 */
-		public Gitterstruktur(int i)
+		/*public Gitterstruktur(int i)
 		{
-			this(new Spectrum(1.f, 1.f, 1.f));
 			this.i = i;
-		}
+		}*/
 
 		/**
 		 * Returns diffuse BRDF value, that is, a constant.
@@ -53,7 +67,15 @@ public class Gitterstruktur implements Material{
 			else
 				condition = Math.abs(10*hitRecord.position.x%2) >= 1;*/
 			
-			float restx= 10*hitRecord.position.x % 5;
+			float xStep=Math.abs(hitRecord.position.x) % density;
+			float yStep=Math.abs(hitRecord.position.y) % density;
+			
+			if((xStep>density-thickness||xStep<thickness)&&(yStep>density-thickness||yStep<thickness))return intersectionColor;
+			if(xStep>density-thickness||xStep<thickness)return gridColor;
+			if(yStep>density-thickness||yStep<thickness)return gridColor;
+			return backColor;
+			
+			/*float restx= 10*hitRecord.position.x % 5;
 			if(restx<0)
 				restx+=5;
 			
@@ -72,13 +94,13 @@ public class Gitterstruktur implements Material{
 				case 0: resta=(int)restx; restb=(int)resty; break;
 				case 1: resta=(int)restx; restb=(int)restz; break;
 				case 2: resta=(int)resty; restb=(int)restz; break;
-				default: return new Spectrum(1,1,1);
+				default: return backColor;
 			
 			}
 			
-			if(resta%5==0 || restb%5==0)
-				return new Spectrum(0,0,1);
-			return new Spectrum (1,1,1);
+			if(resta%density==0 || restb%density==0)
+				return gridColor;
+			return backColor;
 			
 			//Schachbrett
 			/*if((restx+resty)%2==0)
@@ -97,7 +119,7 @@ public class Gitterstruktur implements Material{
 			default: return new Spectrum(1,1,1);
 			}*/
 			
-			//return new Spectrum(kd);
+			//return new Spectrum(kd);*/
 		}
 
 		public boolean hasSpecularReflection()

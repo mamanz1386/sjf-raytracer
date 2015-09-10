@@ -17,6 +17,7 @@ import rt.intersectables.Plane;
 import rt.intersectables.Sphere;
 import rt.lightsources.PointLight;
 import rt.materials.Diffuse;
+import rt.materials.Gitterstruktur;
 import rt.materials.Refractive;
 import rt.materials.Schachbrett;
 import rt.samplers.RandomSamplerFactory;
@@ -53,7 +54,7 @@ public class RefractiveSphere extends Scene {
 		integratorFactory = new WhittedIntegratorFactory();
 		samplerFactory = new RandomSamplerFactory();		
 		
-		Material chess = new Schachbrett();
+		Material chess = new Gitterstruktur(0);
 
 		
 		// Ground and back plane
@@ -62,7 +63,7 @@ public class RefractiveSphere extends Scene {
 		Plane backPlane = new Plane(new Vector3f(0.f, 0.f, 1f), 1f);
 		backPlane.material = chess;
 		// A sphere for testing
-		Sphere sphere = new Sphere(new Point3f(0F,0F,0F),1F);
+		Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
 		sphere.material = new Refractive(1.3F);
 		
 		// Collect objects in intersectable list
