@@ -33,11 +33,15 @@ public class Textured implements Material {
 	@Override
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut,
 			Vector3f wIn) {
-		int rgb = texture.getRGB(0, 0);
+		int texture_x = (int) (texture.getWidth() * hitRecord.v);
+		int texture_y = (int) (texture.getHeight() * hitRecord.u);
+		int rgb = texture.getRGB(texture_x, texture_y);
 		Color color = new Color(rgb);
-		color.getRed();
+		float r = color.getRed()/255f;
+		float g = color.getGreen()/255f;
+		float b = color.getBlue()/255f;
 		// TODO: Return more than null here
-		return null;
+		return new Spectrum(r,g,b);
 	}
 
 	@Override

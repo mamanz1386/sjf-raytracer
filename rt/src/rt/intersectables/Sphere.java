@@ -64,7 +64,11 @@ public class Sphere implements Intersectable {
 		Vector3f back=new Vector3f(r.direction);
 		back.negate();
 		back.normalize();
-		return new HitRecord(t, isec, norm, back, this, material, 0F, 0F);
+		float theta =(float) Math.acos(isec.y/radius);
+		float u = (float) (theta/Math.PI);
+		float phi = (float) Math.atan2(isec.x, isec.z);
+		float v = (float) ((phi+Math.PI)/(2*Math.PI));
+		return new HitRecord(t, isec, norm, back, this, material, u, v);
 	}
 	
 	public AxisAlignedBox getBoundingBox()

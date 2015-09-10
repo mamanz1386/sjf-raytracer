@@ -22,6 +22,7 @@ import rt.materials.Gitterstruktur;
 import rt.materials.PerlinNoisWood;
 import rt.materials.PerlinNoise;
 import rt.materials.Schachbrett;
+import rt.materials.Textured;
 import rt.samplers.OneSamplerFactory;
 import rt.tonemappers.ClampTonemapper;
 
@@ -30,7 +31,7 @@ public class Plane2D extends Scene{
 	public Plane2D()
 	{
 		// Output file name
-		outputFilename = new String("../output/testscenes/FraktalTestScene");
+		outputFilename = new String("../output/testscenes/TextureTest");
 		// Image width and height in pixels
 		width = 1280;
 		height = 720;
@@ -63,7 +64,7 @@ public class Plane2D extends Scene{
 		
 		Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
 		//sphere.material = refractive;
-		sphere.material = new PerlinNoisWood();
+		sphere.material = new Textured("C:/Users/Bibin/Desktop/textureKontrolle3.jpg");
 		
 		
 		// Some planes are left out
