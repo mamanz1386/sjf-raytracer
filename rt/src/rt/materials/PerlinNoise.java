@@ -54,9 +54,9 @@ private PerlinNoiseGenerator generator;
 		
 		float perNoise = 0;
         
-		float a = 2; // The parameter "a" controls how rough the final noise will be
-        float b = 2; // A harmonic will be Noise(b x) where "b" is some positive number greater than 1, most commonly it will be powers of 2
-        float n = 8; // n is typically between 6 and 10
+		float a = 3; // The parameter "a" controls how rough the final noise will be
+        float b = 4; // A harmonic will be Noise(b x) where "b" is some positive number greater than 1, most commonly it will be powers of 2
+        float n = 9; // n is typically between 6 and 10
 		
 		for(int i = 0; i < n; i++) {
 	        
@@ -65,8 +65,8 @@ private PerlinNoiseGenerator generator;
 		}
 
 		// a*perNoise + b*(1-perNoise)
-		Spectrum blue = new Spectrum(0,0,1);
-		Spectrum white = new Spectrum(1,1,1);
+		Spectrum blue = new Spectrum(1,1,1);
+		Spectrum white = new Spectrum(0,0.6f,1);
 		white.mult(perNoise);
 		blue.mult(1-perNoise);
 		white.add(blue);
