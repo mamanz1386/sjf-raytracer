@@ -30,8 +30,7 @@ public class MultiThreadedRenderer extends Renderer {
 		ArrayList<Future<?>> futures = new ArrayList<>(nTasks);
 		for(int j=0; j < Math.ceil(height/(float)taskSize); j++) {
 			for(int i=0; i < Math.ceil(width/(float)taskSize); i++) {
-				RenderTask task = new RenderTask(scene, i*taskSize, Math.min((i+1)*taskSize, width), j*taskSize, 
-																	Math.min((j+1)*taskSize, height));
+				RenderTask task = new RenderTask(scene, i*taskSize, Math.min((i+1)*taskSize, width), j*taskSize, Math.min((j+1)*taskSize, height));
 				futures.add(executor.submit(task));
 			}
 		}

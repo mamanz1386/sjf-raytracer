@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 import rt.renderers.DebuggingRenderer;
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
+import rt.testscenes.CameraTestScene;
 import rt.testscenes.RefractiveSphere;
 import rt.testscenes.RefractiveSphereOriginal;
 
@@ -21,9 +22,8 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new RefractiveSphereOriginal();
+	public static Scene scene = new CameraTestScene();
 	
-	public static int c=0,i=0,g=0;
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
@@ -32,7 +32,6 @@ public class Main {
 		Renderer renderer = new MultiThreadedRenderer(scene);
 		renderer.render();
 		renderer.writeImageToFile();
-		System.out.println(c+":"+i+":"+g);
 	}
 	
 }

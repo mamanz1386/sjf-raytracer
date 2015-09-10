@@ -7,6 +7,7 @@ import rt.LightGeometry;
 import rt.LightList;
 import rt.Scene;
 import rt.Spectrum;
+import rt.cameras.DOFCamera;
 import rt.cameras.MovableCamera;
 import rt.films.BoxFilterFilm;
 import rt.integrators.PointLightIntegratorFactory;
@@ -19,6 +20,7 @@ import rt.materials.BlinnPhong;
 import rt.materials.Diffuse;
 import rt.materials.Refractive;
 import rt.samplers.OneSamplerFactory;
+import rt.samplers.RandomSamplerFactory;
 import rt.tonemappers.ClampTonemapper;
 
 /**
@@ -35,7 +37,7 @@ public class CameraTestScene extends Scene {
 		height = 720;
 		
 		// Number of samples per pixel
-		SPP = 1;
+		SPP = 10;
 		
 		// Specify which camera, film, and tonemapper to use
 		Vector3f eye = new Vector3f(0.5f, 0.5f, 3.f);
@@ -43,14 +45,14 @@ public class CameraTestScene extends Scene {
 		Vector3f up = new Vector3f(0.2f, 1.f, 0.f);
 		float fov = 60.f;
 		float aspect = 16.f/9.f;
-		camera = new MovableCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new DOFCamera(eye, lookAt, up, fov, aspect, width, height,0.5F,3);
 		//camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
 		film = new BoxFilterFilm(width, height);
 		tonemapper = new ClampTonemapper();
 		
 		// Specify which integrator and sampler to use
 		integratorFactory = new WhittedIntegratorFactory();
-		samplerFactory = new OneSamplerFactory();
+		samplerFactory = new RandomSamplerFactory();
 		
 		// Define some objects to be added to the scene. 
 		// 5 planes can be used to define a box (with never ending walls).
@@ -64,7 +66,7 @@ public class CameraTestScene extends Scene {
 		Plane p5 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
 		Sphere sCenter = new Sphere(new Point3f(0, 0, 0), 1f);
 		//sCenter.material = new BlinnPhong(new Spectrum(0.8f, 0.8f, 0.8f), new Spectrum(.4f, .4f, .4f), 50.f);
-		sCenter.material = new Refractive(1.3f);
+		sCenter.material = new BlinnPhong();
 		
 		IntersectableList iList = new IntersectableList();
 		// Some planes are left out
