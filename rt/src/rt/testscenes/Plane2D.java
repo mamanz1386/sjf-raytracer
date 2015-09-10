@@ -59,12 +59,12 @@ public class Plane2D extends Scene{
 		// Define some objects to be added to the scene. 
 		// 5 planes can be used to define a box (with never ending walls).
 		Plane p1 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		p1.material = new Gitterstruktur(0);
+		p1.material = new Schachbrett();
 		iList.add(p1);
 		
 		Sphere sphere = new Sphere(new Point3f(0F,0F,1F),1F);
 		//sphere.material = refractive;
-		sphere.material = new Textured("C:/Users/Bibin/Desktop/textureKontrolle3.jpg");
+		sphere.material = new Textured("C:/Users/Bibin/Desktop/Weltkarte.jpg");
 		
 		
 		// Some planes are left out

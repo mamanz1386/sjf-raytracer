@@ -129,7 +129,24 @@ public class MeshTriangle implements Intersectable {
 									   a*nz0 + u*nz1 + v*nz2);
 		normal.normalize();
 		
-		return new HitRecord(lambda, position, normal, r.direction, this, mesh.material, u, v);
+		float texture_u;
+		float texture_v;
+		if(mesh.texCoords == null){
+			texture_u =0;
+			texture_v =0;
+		}else{
+			float ua = mesh.texCoords[v0];
+			float va = mesh.texCoords[v0+1];
+			float ub = mesh.texCoords[v1];
+			float vb = mesh.texCoords[v1+1];
+			float uc = mesh.texCoords[v2];
+			float vc = mesh.texCoords[v2+1];
+			
+			texture_u = a*ua + u*ub + v*uc;
+			texture_v = a*va + u*vb + v*vc;
+		}
+		
+		return new HitRecord(lambda, position, normal, r.direction, this, mesh.material, texture_u, texture_v);
 			
 		}
 		

@@ -31,7 +31,7 @@ public class TeapotShadowTest extends Scene {
 	 */
 	public TeapotShadowTest()
 	{	
-		outputFilename = new String("../output/testscenes/teapotShadow2");
+		outputFilename = new String("../output/testscenes/MeshTextureTest");
 		
 		// Specify integrator to be used
 		integratorFactory = new PointLightIntegratorFactory();
@@ -59,23 +59,23 @@ public class TeapotShadowTest extends Scene {
 				
 		// Box
 		Plane plane = new Plane(new Vector3f(0.f, 1.f, 0.f), 1.f);
-		plane.material = new Gitterstruktur(1);
+		plane.material = new Diffuse();
 		objects.add(plane);		
 		
 		plane = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		plane.material = new Gitterstruktur(0);
+		plane.material = new Diffuse();
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(-1.f, 0.f, 0.f), 1.f);
-		plane.material = new Gitterstruktur(2);
+		plane.material = new Diffuse();
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(1.f, 0.f, 0.f), 1.f);
-		plane.material = new Gitterstruktur(2);
+		plane.material = new Diffuse();
 		objects.add(plane);
 		
 		plane = new Plane(new Vector3f(0.f, -1.f, 0.f), 1.f);
-		plane.material = new Gitterstruktur(1);
+		plane.material = new Diffuse();
 		objects.add(plane);
 		
 		// Add objects
@@ -85,8 +85,8 @@ public class TeapotShadowTest extends Scene {
 		try
 		{
 			
-			mesh = ObjReader.read("../obj/teapot.obj", 1.f);
-			mesh.material = new Schachbrett();
+			mesh = ObjReader.read("../obj/sphere.obj", 1.f);
+			mesh.material = new Textured("../textures/textureKontrolle.jpg");
 			
 			timer.reset();
 			accelerator = new BSPAccelerator(mesh);
