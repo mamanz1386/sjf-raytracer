@@ -10,6 +10,7 @@ import rt.Spectrum;
 import rt.cameras.DOFCamera;
 import rt.cameras.MovableCamera;
 import rt.films.BoxFilterFilm;
+import rt.integrators.DebugIntegratorFactory;
 import rt.integrators.PointLightIntegratorFactory;
 import rt.integrators.WhittedIntegratorFactory;
 import rt.intersectables.IntersectableList;
@@ -51,7 +52,7 @@ public class CameraTestScene extends Scene {
 		tonemapper = new ClampTonemapper();
 		
 		// Specify which integrator and sampler to use
-		integratorFactory = new WhittedIntegratorFactory();
+		integratorFactory = new DebugIntegratorFactory();
 		samplerFactory = new RandomSamplerFactory();
 		
 		// Define some objects to be added to the scene. 

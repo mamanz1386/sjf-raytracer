@@ -6,8 +6,8 @@ import java.util.concurrent.ExecutionException;
 
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
-import rt.testscenes.CameraTestScene;
 //github.com/sjf2015/sjf-raytracer
+import rt.testscenes.Presentation;
 
 /**
  * The main rendering loop. Provides multi-threading support. The {@link Main#scene} to be rendered
@@ -20,7 +20,7 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new CameraTestScene();
+	public static Scene scene = new Presentation();
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			

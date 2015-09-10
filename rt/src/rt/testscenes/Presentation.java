@@ -1,18 +1,23 @@
 package rt.testscenes;
 
-import javax.vecmath.Point3f;
+import java.io.IOException;
+
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
 import rt.LightGeometry;
 import rt.LightList;
+import rt.ObjReader;
 import rt.Scene;
 import rt.Spectrum;
+import rt.accelerators.BSPAccelerator;
 import rt.cameras.DOFCamera;
 import rt.films.BoxFilterFilm;
 import rt.integrators.WhittedIntegratorFactory;
+import rt.intersectables.Instance;
 import rt.intersectables.IntersectableList;
+import rt.intersectables.Mesh;
 import rt.intersectables.Plane;
-import rt.intersectables.Sphere;
 import rt.lightsources.PointLight;
 import rt.materials.BlinnPhong;
 import rt.materials.Diffuse;
@@ -21,61 +26,65 @@ import rt.tonemappers.ClampTonemapper;
 
 public class Presentation extends Scene{
 	public Presentation() {
-		// Output file name
 		outputFilename = new String("../output/testscenes/Presentation");
-		// Image width and height in pixels
 		width = 1280;
 		height = 720;
 		
-		// Number of samples per pixel
 		SPP = 10;
 		
-		// Specify which camera, film, and tonemapper to use
 		Vector3f eye = new Vector3f(0.5f, 0.5f, 3.f);
-		Vector3f lookAt = new Vector3f(0.5f, 0.f, 0.f);
-		Vector3f up = new Vector3f(0.2f, 1.f, 0.f);
+		Vector3f lookAt = new Vector3f(0f, 0.5f, 0.f);
+		Vector3f up = new Vector3f(0f, 1.f, 0.f);
 		float fov = 60.f;
 		float aspect = 16.f/9.f;
-		camera = new DOFCamera(eye, lookAt, up, fov, aspect, width, height,0.5F,3);
-		//camera = new PinholeCamera(eye, lookAt, up, fov, aspect, width, height);
+		camera = new DOFCamera(eye, lookAt, up, fov, aspect, width, height,0F,0);
 		film = new BoxFilterFilm(width, height);
 		tonemapper = new ClampTonemapper();
 		
-		// Specify which integrator and sampler to use
 		integratorFactory = new WhittedIntegratorFactory();
 		samplerFactory = new RandomSamplerFactory();
 		
 		
-		// Define some objects to be added to the scene. 
-		// 5 planes can be used to define a box (with never ending walls).
-		Plane p1 = new Plane(new Vector3f(1.f, 0.f, 0.f), 1.f);
-		//p1.material = new BlinnPhong();
-		Plane p2 = new Plane(new Vector3f(-1.f, 0.f, 0.f), 1.f);
-		p2.material = new Diffuse(new Spectrum(.8f, 0.f, 0.f));
-		Plane p3 = new Plane(new Vector3f(0.f, 1.f, 0.f), 1.f);
-		Plane p4 = new Plane(new Vector3f(0.f, -1.f, 0.f), 1.f);
-		p4.material = new Diffuse(new Spectrum(1, 1, 0));
-		Plane p5 = new Plane(new Vector3f(0.f, 0.f, 1.f), 1.f);
-		Sphere sCenter = new Sphere(new Point3f(0, 0, 0), 1f);
-		//sCenter.material = new BlinnPhong(new Spectrum(0.8f, 0.8f, 0.8f), new Spectrum(.4f, .4f, .4f), 50.f);
-		sCenter.material = new BlinnPhong();
+		Plane groundPlane=new Plane(new Vector3f(0,0,1),0);
+		groundPlane.material=new Diffuse(new Spectrum(1, 0, 0));//new Gitterstruktur(new Spectrum(), new Spectrum(1, 1, 1), 0.125F, 0.25F);
+		Matrix4f t = new Matrix4f();
+		t.setIdentity();
+		t.rotX((float) (-Math.PI/2));
+		Instance ground=new Instance(groundPlane, t);
+		
+		Mesh dragon;
+		BSPAccelerator dragonAccelerator;
+		
+		Mesh glas;
+		BSPAccelerator glasAccelerator;
 		
 		IntersectableList iList = new IntersectableList();
-		// Some planes are left out
-		iList.add(p1);
-		iList.add(p2);
-		iList.add(p3);
-		iList.add(p4);
-		iList.add(p5);
-		iList.add(sCenter);
+		try{
+			dragon = ObjReader.read("../obj/sphere.obj", 1.f);
+			dragon.material = new BlinnPhong(new Spectrum(0.8F,0,0.2F),new Spectrum(1, 1, 1),3);
+			dragonAccelerator = new BSPAccelerator(dragon);
+			//iList.add(dragonAccelerator); 	
+		} catch(IOException e){
+			System.out.printf("Could not read .obj file\n");
+			return;
+		}
+		
+		try{
+			dragon = ObjReader.read("../obj/sphere.obj", 1.f);
+			dragon.material = new BlinnPhong(new Spectrum(0.8F,0,0.2F),new Spectrum(1, 1, 1),3);
+			dragonAccelerator = new BSPAccelerator(dragon);
+			//iList.add(dragonAccelerator); 	
+		} catch(IOException e){
+			System.out.printf("Could not read .obj file\n");
+			return;
+		}
+		iList.add(groundPlane);
 		
 		this.root = iList;
 		
 		// Light sources
-		LightGeometry l1 = new PointLight(new Vector3f(0.f, 0.f, 5.f), new Spectrum(5.f, 5.f, 5.f));
-		LightGeometry l2 = new PointLight(new Vector3f(0.9f, 0.9f, 0f), new Spectrum(1f, 1f, 1f));
+		LightGeometry l1 = new PointLight(new Vector3f(0.f, 5.f, 0.f), new Spectrum(50.f, 50.f, 50.f));
 		lightList = new LightList();
 		lightList.add(l1);
-		lightList.add(l2);
 	}
 }
