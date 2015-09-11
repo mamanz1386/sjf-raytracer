@@ -3,6 +3,7 @@ package rt.testscenes;
 import rt.intersectables.Rectangle;
 
 import javax.swing.Box;
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -13,6 +14,7 @@ import rt.Spectrum;
 import rt.cameras.MovableCamera;
 import rt.films.BoxFilterFilm;
 import rt.integrators.PointLightIntegratorFactory;
+import rt.intersectables.Instance;
 import rt.intersectables.IntersectableList;
 import rt.intersectables.Plane;
 import rt.intersectables.Sphere;
@@ -40,10 +42,10 @@ public class Plane2D extends Scene{
 		height =720;
 		
 		// Number of samples per pixel
-		SPP = 4;
+		SPP = 8;
 		
 		// Specify which camera, film, and tonemapper to use
-		Vector3f eye = new Vector3f(0.5f, -0.5f, 3.f);
+		Vector3f eye = new Vector3f(0.5f, -0.5f, 5.f);
 		Vector3f lookAt = new Vector3f(0.5f, 0.f, 0.f);
 		Vector3f up = new Vector3f(0f, 1.f, 0.f);
 		float fov = 60.f;
@@ -69,19 +71,28 @@ public class Plane2D extends Scene{
 		Sphere sphere = new Sphere(new Point3f(0F,0.270F,1F),1F);
 		//sphere.material = refractive;
 		//sphere.material = new Fraktal(0.3425f, 0.41f);
-		sphere.material = new Textured("../textures/textureKontrolle.jpg");
+		sphere.material = new Textured("../textures/Weltkarte.jpg");
 		iList.add(sphere);
+		
+		Matrix4f t = new Matrix4f();
+		t.setIdentity();
+		
+		// Instance one
+		t.setScale(1f);
+		t.rotY((float) Math.PI/2);;
+		Instance instance = new Instance(sphere, t);
+		//iList.add(instance);	
 		
 		
 		Rectangle rect = new Rectangle(new Vector3f(-1, -1, 0), new Vector3f(2,0,0), new Vector3f(0,2,0));
 		rect.material = new Textured("../textures/textureKontrolle.jpg");
-		iList.add(rect);
+		//iList.add(rect);
 		
 		this.root = iList;
 		
 		// Light sources
 		lightList = new LightList();
-		LightGeometry l1 = new PointLight(new Vector3f(0f, 0f, 2.01f), new Spectrum(1f, 1f, 1f));
+		LightGeometry l1 = new PointLight(new Vector3f(-2f, 0f, 4f), new Spectrum(10f, 10f, 10f));
 		lightList.add(l1);
 		LightGeometry l2 = new PointLight(new Vector3f(2f, 0f, 4f), new Spectrum(33f, 33f, 33f));
 		lightList.add(l2);
