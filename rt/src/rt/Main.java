@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 import rt.renderers.DebuggingRenderer;
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
+import rt.testscenes.DOFisAmazing;
 import rt.testscenes.InstancingTeapots;
 import rt.testscenes.InstancingTest;
 import rt.testscenes.Plane2D;
@@ -25,13 +26,13 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new Presentation();
+	public static Scene scene = new DOFisAmazing();
 
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
 		scene.prepare();
-		Renderer renderer = new DebuggingRenderer(scene,0,720);
+		Renderer renderer = new MultiThreadedRenderer(scene);
 		renderer.render();
 		renderer.writeImageToFile();
 	}
