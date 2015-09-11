@@ -31,7 +31,7 @@ public class ObjReader {
 
 		boolean hasNormals, hasTexCoords;
 		hasNormals = true;
-		hasTexCoords = true;
+		hasTexCoords = false;
 
 		// Extents for normalization
 		float[] max = new float[] { Float.NEGATIVE_INFINITY,
@@ -168,8 +168,7 @@ public class ObjReader {
 				if (hasTexCoords) {
 					int textCoordIdx = faces.get(i)[j][1] - 1;
 					texCoordsFinal[vertexNr * 2] = texCoords.get(textCoordIdx)[0];
-					texCoordsFinal[vertexNr * 2 + 1] = texCoords
-							.get(textCoordIdx)[1];
+					texCoordsFinal[vertexNr * 2 + 1] = texCoords.get(textCoordIdx)[1];
 				}
 
 				indices[vertexNr] = vertexNr;

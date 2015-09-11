@@ -68,7 +68,7 @@ Spectrum kd;
 		
 		//Schachbrett
 		if((restx+resty)%2==0)
-			return new Spectrum(0,0,0);
+			return new Spectrum(0,1,0);
 		return new Spectrum(1,1,1);
 		
 		
