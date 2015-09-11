@@ -12,6 +12,8 @@ import rt.util.StaticVecmath;
 public class Schachbrett implements Material{
 
 Spectrum kd;
+Material refractive = new Refractive(1.3f);
+Material spiegel = new Refractive(0f);
 	
 	/**
 	 * Note that the parameter value {@param kd} is the diffuse reflectance,
@@ -21,6 +23,7 @@ Spectrum kd;
 	 * 
 	 * @param kd the diffuse reflectance
 	 */
+
 	public Schachbrett(Spectrum kd)
 	{
 		this.kd = new Spectrum(kd);
@@ -31,9 +34,12 @@ Spectrum kd;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
-	public Schachbrett()
+	public float refractionIndex;
+	
+	public Schachbrett(float refractionIndex)
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
+		this.refractionIndex=refractionIndex;
 	}
 
 	/**
@@ -70,9 +76,9 @@ Spectrum kd;
 		
 		//Schachbrett
 		if((restx+resty)%2==0)
-			return new Spectrum(0,1,0);
-		return new Spectrum(1,1,1);
-		
+			hitRecord.material=refractive;
+		hitRecord.material=spiegel;
+		return (new Spectrum(1,1,1));
 		
 		// 6 gestreift
 		/*switch((int)restx){
