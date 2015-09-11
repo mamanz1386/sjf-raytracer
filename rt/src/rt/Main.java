@@ -25,13 +25,13 @@ public class Main {
 	 * The scene to be rendered.
 	 */
 
-	public static Scene scene = new Presentation();
+	public static Scene scene = new Plane2D();
 
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
 		scene.prepare();
-		Renderer renderer = new DebuggingRenderer(scene,0,720);
+		Renderer renderer = new MultiThreadedRenderer(scene);
 		renderer.render();
 		renderer.writeImageToFile();
 	}

@@ -64,6 +64,8 @@ public class Sphere implements Intersectable {
 		Vector3f back=new Vector3f(r.direction);
 		back.negate();
 		back.normalize();
+		
+		//u & v
 		float theta =(float) Math.acos(isec.y/radius);
 		float u = (float) (theta/Math.PI);
 		float phi = (float) Math.atan2(isec.x, isec.z);
