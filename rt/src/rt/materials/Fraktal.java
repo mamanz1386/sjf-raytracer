@@ -10,6 +10,8 @@ import rt.Material.ShadingSample;
 public class Fraktal implements Material{
 
 Spectrum kd;
+float cx;
+float cy;
 	
 	/**
 	 * Note that the parameter value {@param kd} is the diffuse reflectance,
@@ -29,9 +31,19 @@ Spectrum kd;
 	/**
 	 * Default diffuse material with reflectance (1,1,1).
 	 */
+	public Fraktal(float cx, float cy)
+	{
+		this(new Spectrum(1.f, 1.f, 1.f));
+		this.cx=cx;
+		this.cy=cy;
+		
+	}
+	
 	public Fraktal()
 	{
 		this(new Spectrum(1.f, 1.f, 1.f));
+		cx = 0.3425f;
+	    cy = 0.41f;
 	}
 
 	/**
@@ -46,8 +58,7 @@ Spectrum kd;
 	    float zx = (float) ((0.1*hitRecord.position.x-0.3));
 	    float zy = (float) ((0.1*hitRecord.position.y-0.3));
 	    
-	    float cx = 0.3425f;
-	    float cy = 0.41f;
+	    
 
 	    
 	    int i;

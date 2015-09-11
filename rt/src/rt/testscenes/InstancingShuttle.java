@@ -30,7 +30,7 @@ public class InstancingShuttle extends Scene {
 
 	public InstancingShuttle()
 	{	
-		outputFilename = new String("../output/testscenes/InstancingShuttle");
+		outputFilename = new String("../output/testscenes/InstancingShuttle123");
 		
 		// Specify integrator to be used
 		integratorFactory = new PointLightIntegratorFactory();

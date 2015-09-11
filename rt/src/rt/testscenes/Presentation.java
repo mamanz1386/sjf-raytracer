@@ -33,7 +33,11 @@ public class Presentation extends Scene{
 		width = 1280;
 		height = 720;
 		
+<<<<<<< HEAD
 		SPP = 1;
+=======
+		SPP = 10;
+>>>>>>> branch 'master' of https://github.com/sjf2015/sjf-raytracer
 		Vector3f eye = new Vector3f(0f, 3f, -4.f);
 		Vector3f lookAt = new Vector3f(0f, 1f, -8.f);
 		Vector3f up = new Vector3f(0f, 1.f, 0.f);
@@ -45,7 +49,7 @@ public class Presentation extends Scene{
 		tonemapper = new ClampTonemapper();
 		
 		integratorFactory = new WhittedIntegratorFactory();
-		samplerFactory = new UniformSamplerFactory();
+		samplerFactory = new RandomSamplerFactory();
 		
 		
 		Plane groundPlane=new Plane(new Vector3f(0,0,1),0);
