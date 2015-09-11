@@ -7,12 +7,8 @@ import java.util.concurrent.ExecutionException;
 import rt.renderers.DebuggingRenderer;
 import rt.renderers.MultiThreadedRenderer;
 import rt.renderers.Renderer;
-import rt.testscenes.InstancingTeapots;
-import rt.testscenes.InstancingTest;
-import rt.testscenes.Plane2D;
+import rt.renderers.SingleThreadedRenderer;
 import rt.testscenes.Presentation;
-import rt.testscenes.RefractiveSphere;
-import rt.testscenes.TeapotShadowTest;
 
 /**
  * The main rendering loop. Provides multi-threading support. The {@link Main#scene} to be rendered
@@ -31,7 +27,8 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException, ExecutionException, FileNotFoundException, UnsupportedEncodingException
 	{			
 		scene.prepare();
-		Renderer renderer = new DebuggingRenderer(scene,0,720);
+		//Renderer renderer = new SingleThreadedRenderer(scene);//, 500, 500);
+		Renderer renderer = new MultiThreadedRenderer(scene);
 		renderer.render();
 		renderer.writeImageToFile();
 	}

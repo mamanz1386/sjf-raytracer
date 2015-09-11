@@ -20,6 +20,7 @@ public class WhittedIntegrator implements Integrator{
 	LightList lightList;
 	Intersectable root;
 	Scene scene;
+	final float EVALEPS=0.1f;
 	
 	public WhittedIntegrator(Scene scene){
 		this.lightList = scene.getLightList();
@@ -52,6 +53,7 @@ public class WhittedIntegrator implements Integrator{
 				if(!entering)lot.negate();
 				float a1=(float) Math.acos(hit.w.dot(lot));
 				float f,F;
+				//System.out.println(Math.sin(a1)*(n1/n2));
 				if(Math.sin(a1)*(n1/n2)>1){
 					F=1;
 				}else{
@@ -61,16 +63,17 @@ public class WhittedIntegrator implements Integrator{
 				
 				//Reflection
 				Spectrum reflSpectrum=new Spectrum();
-				if(F>0){
+				if(F>EVALEPS){
 					ShadingSample reflectionSample=hit.material.evaluateSpecularReflection(hit);
 					Point3f hitEpsRefl=new Point3f(StaticVecmath.add(StaticVecmath.scale(reflectionSample.w,0.001F),hit.position));
 					reflSpectrum=followRay(new Ray(new Vector3f(hitEpsRefl),hit.material.evaluateSpecularReflection(hit).w),--remaining);
 					reflSpectrum.mult(F);
 				}
 				
+				
 				//Refraction
 				Spectrum refrSpectrum=new Spectrum();
-				if(F<1){
+				if(F<1-EVALEPS){
 					ShadingSample refractionSample=hit.material.evaluateSpecularRefraction(hit);
 					Point3f hitEpsRefr=new Point3f(StaticVecmath.add(StaticVecmath.scale(refractionSample.w,0.001F),hit.position));
 					refrSpectrum=followRay(new Ray(hitEpsRefr,refractionSample.w),--remaining);
@@ -93,7 +96,7 @@ public class WhittedIntegrator implements Integrator{
 				return getSpectrumForHitRecord(hit);
 			}
 		}else{
-			return scene.getSkyColor();
+			return new Spectrum(scene.getSkyColor());
 		}
  		
 	}

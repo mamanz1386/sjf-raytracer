@@ -17,7 +17,7 @@ public class DebuggingRenderer extends Renderer {
 	@Override
 	protected void renderInternally() throws InterruptedException,
 			ExecutionException {
-		RenderTask wholeImageTask = new RenderTask(scene, x, x+1, y, y+1);
+		RenderTask wholeImageTask = new RenderTask(scene, x, x+50, y, y+50);
 		wholeImageTask.run();
 	}
 	
