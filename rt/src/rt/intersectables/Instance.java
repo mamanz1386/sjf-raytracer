@@ -52,7 +52,7 @@ public class Instance implements Intersectable {
 		t.transform(hitRecord.w);
 		//t.transform(hitRecord.t1);
 		//t.transform(hitRecord.t2);
-		//t.transform(hitRecord.normal);
+		t.transform(hitRecord.normal);
 		}
 		
 		// If a hitRecord is created, transform it back and return it.

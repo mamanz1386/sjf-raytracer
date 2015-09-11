@@ -36,8 +36,8 @@ public class Textured implements Material {
 	@Override
 	public Spectrum evaluateBRDF(HitRecord hitRecord, Vector3f wOut,
 			Vector3f wIn) {
-		int texture_x = (int) Math.max(Math.min((texture.getWidth() * hitRecord.v), texture.getWidth()),0);
-		int texture_y = (int) Math.max(Math.min((texture.getHeight() * hitRecord.u), texture.getHeight()),0);
+		int texture_x = (int) Math.max(Math.min((texture.getWidth() * hitRecord.v), texture.getWidth()-1),0);
+		int texture_y = (int) Math.max(Math.min((texture.getHeight() * hitRecord.u), texture.getHeight()-1),0);
 		
 		if(texture.getWidth() * hitRecord.v < 0 || texture.getHeight() * hitRecord.u < 0|| texture.getWidth() * hitRecord.v > texture.getWidth()|| texture.getHeight() * hitRecord.u > texture.getHeight())
 			System.out.println("v: "+ texture.getWidth() * hitRecord.v+ "     u: "+ texture.getHeight() * hitRecord.u);
