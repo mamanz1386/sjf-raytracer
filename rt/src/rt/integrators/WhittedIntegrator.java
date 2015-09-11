@@ -20,7 +20,7 @@ public class WhittedIntegrator implements Integrator{
 	LightList lightList;
 	Intersectable root;
 	Scene scene;
-	final float EVALEPS=0.1f;
+	final float EVALEPS=0.01f;//Bigger->Better Performance but worse quality
 	
 	public WhittedIntegrator(Scene scene){
 		this.lightList = scene.getLightList();
